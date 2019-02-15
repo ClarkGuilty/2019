@@ -1,0 +1,30 @@
+#lista de estrellas a observar.
+#
+#Estrella TipoEspectral Magnitud Fecha
+#Semana 4-5
+Sirio	A	-1.45	18-feb-2019
+Adhara	B	1.5	18-feb-2019
+Mirzan	B	1.97	18-feb-2019
+Rigel	B	0.12	18-feb-2019 #Alta masa de aire
+Regulus	B	1.34	18-feb-2019
+Saiph	B	2.05	18-feb-2019
+#Semana 6-7
+Regulus	B	1.34	04-mar-2019
+Castor	A	1.97	04-mar-2019
+Spica	B	0.97	04-mar-2019 #Posible víctima de la montaña
+#Semana 8-9
+#Semana 10-11
+Alkaid	B	1.86	18-mar-2019 #posiblemente muy al oriente (va mejorando con el tiempo)
+Regulus	B	1.34	18-mar-2019 #muy cerca a la luna (pero solo unos días)
+Denebola A	2.125	18-mar-2019
+#Semana 10-11
+Denebola	A	2.125	01-abr-2019
+Regulus	B	1.34	01-abr-2019
+Alkaid	B	1.86	01-abr-2019
+Alioth	A	1.76	01-abr-2019
+Mizar 	A	2.26	01-abr-2019
+#Semana 12-13
+Spica	B	0.97	15-abr-2019
+Alkaid	B	1.86	15-abr-2019
+Alioth	A	1.76	15-abr-2019
+Mizar 	A	2.26	15-abr-2019
