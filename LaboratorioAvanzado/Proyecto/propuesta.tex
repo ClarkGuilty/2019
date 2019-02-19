@@ -1,0 +1,205 @@
+\documentclass[notitlepage,letterpaper,12pt]{article} % para articulo
+
+% Este es un comentario <- Los comentarios comienzan con % 
+% todo lo que se escriba hasta el final de la linea será ignorado <- Este es otro comentario
+
+%Lenguaje del documento
+\usepackage[spanish]{babel} % silabea palabras castellanas <- Puedo poner comentarios para explicar de que va este comando en la misma línea
+
+%Encoding
+\usepackage[utf8]{inputenc} % Acepta caracteres en castellano
+\usepackage[T1]{fontenc} % Encoding de salida al pdf
+
+%Triunfó el mal
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+
+\usepackage{textcomp}
+\usepackage{gensymb}
+
+
+%Hipertexto
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue]{hyperref} % navega por el doc: hipertexto y links
+
+%Aquello de las urls
+\usepackage{url} 
+
+%simbolos matemáticos
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{physics} 
+
+% permite insertar gráficos, imágenes y figuras, en pdf o en eps
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{multirow}
+\usepackage[export]{adjustbox}
+% geometría del documento, encabezados y pies de páginas, márgenes
+\usepackage{quotmark} %Uso consistente con la RAE de comillas
+\usepackage{geometry}     
+\geometry{letterpaper}       % ... o a4paper o a5paper o ... 
+\usepackage{fancyhdr} % encabezados y pies de pg
+\pagestyle{fancy}
+\chead{\bfseries {}}
+\lhead{} % si se omite coloca el nombre de la seccion
+%\rhead{fecha del doc}
+\lfoot{\it Propuesta laboratorio avanzado.}
+\cfoot{ }
+\rfoot{Universidad de los Andes}
+%\rfoot{\thepage}
+%margenes
+\voffset = -0.25in
+\textheight = 8.0in
+\textwidth = 6.5in
+\oddsidemargin = 0.in
+\headheight = 20pt
+\headwidth = 6.5in
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0,5pt}
+
+\begin{document}
+\title{Medición de la velocidad de rotación de estrellas de alta temperatura (tipo O, B y A)}
+\author{
+\textbf{Javier Alejandro Acevedo Barroso\thanks{e-mail: \texttt{ja.acevedo12@uniandes.edu.co}}}\\
+\textit{Universidad de los Andes, Bogotá, Colombia}\\
+} % Hasta aquí llega el bloque "author" (son dos autores por informe, orden alfabético)
+
+%\date{Versión $\alpha \beta$ fecha del documento }
+\maketitle %Genera el título del documento
+
+
+%Resumen
+
+%\begin{abstract}
+%TODO:abstract
+%Se proponen dos líneas de trabajo: La primera se vale de los muones que provienen de la radiación cósmica y de centelladores para caracterizar materiales. La segunda utiliza Phase-Contrast Imaging de rayos x para obtener imágenes con mejor\footnote{En relación a costraste por absorción.} contraste de objetos microscópitos en fantomas mamarios.  Al ser una propuesta de laboratorio intermedio está diseñada para ser llevada a cabo en 8 semanas aproximadamente.
+%\end{abstract} 
+%Introducción
+\section{Introducción}
+Se medirá la velocidad de rotación de al menos una estrella de tipo espectral O, B o A comparando el FWHM de las líneas de Helio y Magnesio de la estrella con las de la lámpara de calibración.   Durante siglos el estudio de las estrellas ha sido esencial para la humanidad, desde la construcción de calendarios, hasta el descubrimiento de la materia oscura. En particular, el estudio de la \emph{velocidad de rotación} de una estrella respecto a su propio eje da información sobre su proceso de formación, su achatamiento en los polos y su edad.
+%Los experimentos que realizaremos serán en el laboratorio de física de Altas energías, estaremos bajo la supervisión del profesor Carlos Ávila y del encargado del laboratorio Gerardo Roque.
+
+\subsection{Experimento 1: Caracterización de materiales mediante tomografía de muones }
+
+Para el primer experimento se planea, basados en el paper europeo \cite{muones}, estudiar muestras de plomo de diferentes grosores utilizando dos cristales centelladores para obtener una curva de atenuación de los muones de radiación cósmica incidentes en la muestra, obteniendo información respecto a la densidad del material. ¿Se pueden determinar propiedades fisicas del material tales como la densidad utilizando radiación cósmica de muones?¿Qué precisión se puede obtener en comparación con otros métodos de medición y de qué depende dicha precisión?
+
+
+%Montaje experimental
+\section{Desarrollo experimental}
+
+Para cada uno de los experimentos se requieren diferentes montajes, especificados a continuación:
+\subsection{Experimento 1}
+Se ubican 2 placas centellantes con por lo menos medio metro de separación vertical, alineadas una encima de otra, logrando así que los muones que incidan en ambas placas tengan poca inclinación. Debido a la ubicación del laboratorio, solo las partículas de alta energía podrán incidir en los detectores. Los cristales centellantes al ser incididos por un muon emiten fotones azules que son captados con el fotomultiplicador, que con dinodos logra crear una corriente a partir de los fotones incidentes. Luego,la corriente llega a un discriminador y de ahí a una unidad lógica que se encargan de sólo registrar los eventos con coincidencias en ambos cristales centellantes. En medio de los cristales se sitúa una muestra del material a estudiar con el fin de saber cuantos muones inciden a través del material y cómo se comporta la dispersión lineal dentro de este. La toma de datos individual debe durar al menos 2 horas para así obtener suficientes incidencias.
+
+Basándose en estos datos, se pueden obtener curvas de atenuación que dan información sobre la densidad y estructura interna del material. Se analizarán con esta técnica materiales como ladrillo, plomo , acero, entre otros.
+\paragraph{Cronograma.} Se espera poder desarrollar este experimento en las semanas comprendidas entre el 4 de Septiembre y el 30 de Septiembre, con una intensidad horaria mínima semanal de 4 horas. Se medirán las incidencias de muones en intervalos de 2 horas para al cabo de las 4 semanas tener suficientes datos para analizar. No obstante, si son requeridos más datos, se puede llevar en simultáneo con el otro experimento por el tiempo que sea necesario.
+
+\subsection{Experimento 2}
+Se usan una fuente de rayos X y del Medipix con una pantalla de 256X256 píxeles cuadrados. En ellos se pega un cristal de silicio  u otros materiales dependiendo del rango de energía que se quiera usar. El cristal en el que incide la radiacion se polariza con un voltaje de 200V haciendo que el cristal esté dopado, de esta manera cuando un fotón excita a un electrón del cristal, este se despende y arrastra una corriente de electrones hacia los pixeles, generando un nuevo evento.
+
+
+Los eventos se detectan cada vez que un fotón desprende varios electrones y son arrastrados hacia los pixeles pasando por un amplificador y produciendo un pulso de voltaje, donde la altura del pulso es directamente  proporcional a la cantidad de electrones que llegó al pixel y por consiguiente también es directamente proporcional a la energía del fotón que expidió esos electrones.
+
+
+Con un cañón de Rayos X se inciden fotones en un rango de energía no superior a 25 keV sobre  un fantoma mamográfico que tiene pequeñas incrustaciones (del orden de los $100 \mu m$). El tiempo de exposición depende de la tolerancia de la muestra y la intensidad de radiación, se debe administrar una dosis de aproximadamente 4mGy. Utilizando un algoritmo de reconstrucción de Phase contrast imaging y tomando datos con diferentes ángulos de incidencia al medipix, se busca obtener imágenes con buen contraste de las pequeñas incrustaciones, dado que estas son de baja absorción.
+
+\paragraph{Cronograma.} Puesto que el equipo necesario estará disponible desde el 25 de septiembre (aproximadamente), se asignará un espacio de 6 semanas con la misma intensidad horaria que el experimento 1, comprendidas ente el 25 de Septiembre y el 11 de Noviembre. Se pueden llevar los experimentos en paralelo si es necesario, por ende la totalidad de los dos experimentos no debería abarcar 10 semanas.
+
+%\begin{figure}[h!]
+  %\centering
+   %\includegraphics[scale= 0.8]{motaje.png}
+  %\caption{Montaje experimental.}
+  %\label{fig: Montaje experimental }
+%\end{figure}
+
+
+
+
+% Puedo usar subsecciones para destacar un serie de párrafos que forman un marco común dentro de una sección:
+%\subsection{Tablas}
+%Las Tablas deben ser lo más autocontenidas posibles. Sus títulos y  leyendas deben ser suficiente para explicar su contenido. Las tablas deben ser referidas desde el texto (ver Tabla \ref{Tabla1}). Si no se hace referencia a una tabla en particular, ésta se considera inútil para el artículo y debe ser suprimida
+
+
+\section{Marco teórico}
+A continuación se definen las herramientas teóricas necesarias para desarrollar cada uno de los experimentos:
+\subsection{Experimento 1}
+\paragraph{Radiación Cósmica.} Constantemente partículas altamente energéticas provenientes del espacio exterior impactan la atmósfera terrestre a velocidades cercanas a la de la luz, lo cual equivalen a energías entre los 100 MeV y los 10 GeV. Estas partículas incluyen núcleos atómicos, electrones, muones, neutrinos, entre otros. La intensidad promedio de muones recibida por la tierra es de aproximadamente 100 muones por metro cuadrado por segundo, muchos originados en el decaimineto de piones.\cite{nasa}\cite{caltech}
+\paragraph{Muon Scattering Tomography (MT).} Es una técnica de tomografía que usa el scattering de muones incidentes en una muestra para generar imágenes 3D de la estructura iterna del material. Es mucho mejor que  la tomografía de Rayos X, pues los muones son mucho más penetrantes, permitiendo así analizar muestras mucho más gruesas. la difracción dentro del material es causada por el potencial de Coulomb, que se debe a la interacción de dos partículas cargadas, en este caso, los muones y los núcleos atómicos\cite{princeton}.
+\paragraph{Cristales centelleadores.} Son materiales cristalinos transparentes que al recibir cualquier tipo de radiación ionizante, convierte gran parte de la energía recibida en fotones (energía lumínica). Esta energía lumínica residual es depués captada por sensores (fotomultiplicadores, por ejemplo) y manejada como se requiera. buenos ejemplos de estos materiales centelleadores son el Tungstenato de Cadmio (CdW$O_{4}$) o el tungstenato de Calcio (CaW$O_{4}$) .
+
+\subsection{Experimento 2}
+\paragraph{Rayos X.} Radiación electromagnética con longitud de onda entre 10 y 0.01 nanómetros, es decir una frecuencia entre 30 y 30000 PHz. Es de origen extranuclear y su característica más notable es la de atravesar cuerpos rigidos, permitiendo así hacer tomografías.
+\paragraph{Fantomas mamarios.} Muestras blandas artificiales que permiten calibrar mamógrafos puesto que bajo rayos X se comportan bastante similar al tejido blando del cuerpo humano en cuanto a absorción de radiación. En estas muestras hay microcalcificaciones y fibras que el mamógrafo debería ser capaz de detectar.
+\paragraph{Medipix.} Es una variedad amplia de fotocontadores y de detectores de pixeles para el seguimiento de partículas, se usa particulaermente en detección de Rayos X puesto que ofrece un rango amplio de sensitividad de energías\cite{medipix}.
+
+
+
+\section{Objetivos}
+\subsection{Experimento 1}
+Para el experimento de caracterización de materiales se espera obtener una curva de atenuación para los diferentes materiales y así tener datos sobre su densidad. Despúes, la  meta es establecer una comparación cuantitativa con otros métodos de medición. Como objetivos de aprendizaje, se espera adquirir habilidades con los instrumentos de medición de altas energías, además de desarrollar rigor a la hora de llevar a cabo experimentos de larga duración. 
+
+%Para el experimento de Phase Contrast Imaging se espera obtener imagenes con mejor resolución de los materiales poco absorbentes dentro del fantoma. Como objetivos de aprendizaje está el reproducir experimentos basados en referencias para poder adaptar y mejorar las técnicas de muestreo.
+\subsection{Experimento 2}
+Para el segundo experimento el principal objetivo es replicar los resultados obtenidos por el laboratorio en La Universidad Técnica Checa en Praga y obtener imágenes de las calcificaciones del fantoma por el método de contraste de fases. Después, el obetivo es saber si se puede encontrar un método que use el contraste de fases, pero que obtenga una mejor resolución de los elementos poco absorbentes que pueda tener el fantoma. Los resultados se compararán cuantitativamente con los obtenidos en Praga. Como habilidades a desarrollar se tiene en cuenta el aprender sobre manejo de fuentes de radiación y detectores, implementaciòn de algoritmos en anàlisis de resultados y trabajar en paralelo o replicar experimentos ya hechos en otros laboratorios.
+
+
+
+
+
+
+\section{Referencias}
+
+
+\bibliographystyle{unsrt} % estilo de las referencias 
+\bibliography{bibtex.bib} %archivo con los datos de los artículos citados
+
+
+%\bibliography{mybib.bib} %archivo con los datos de los artículos citados
+
+% Forma Manual de hacer las referencias
+% Se escribe todo a mano...
+% Descomentar y jugar
+
+%\begin{thebibliography}{99}
+%\bibitem{Narasimhan1993}Narasimhan, M.N.L., (1993), \textit{Principles of
+%Continuum Mechanics}, (John Willey, New York) p. 510.
+
+%\bibitem{Demianski1985}Demia\'{n}ski M., (1985), \textit{Relativistic
+%Astrophysics,} in International Series in Natural Philosophy, Vol 110, Edited
+%by \textit{D. Ter Haar}, (Pergamon Press, Oxford).
+%\end{thebibliography}
+
+
+%Fin del documento
+\end{document}
+
+
+Así mismo, el factor de calidad $Q$ está dado por:
+\begin{equation}
+Q = \frac{1}{R} \sqrt\frac{L}{C}
+\end{equation}
+Por lo tanto, el valor del factor de calidad
+
+%Todo lo que escriba aquí será ignorado, aunque no fuera un comentario...
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+2 cm   & 4 cm   & 8 cm   \\ \hline
+175,77 & 129,77 & 88,77  \\ \hline
+223,77 & 129,77 & 114,77 \\ \hline
+219,77 & 134,77 & 77,77  \\ \hline
+190,77 & 120,77 & 83,77  \\ \hline
+\end{tabular}
+\caption{Número de colisiones a diferentes distancias en cinco minutos.}
+\label{tiempoFijo}
+\end{table}
+
+\begin{figure}[h]
+  \centering
+   \includegraphics[scale= 0.8]{jairos.png}
+  \caption{Gráfica del periodo de la pulsación para diferentes razones entre las frecuencias naturales utilizando una pesa de 200g. Es de resaltar que el pico no está centrado en 1 pero está bastante cerca. Esto probablemente se debe a errores a la hora de medir la longitud de los péndulos.}
+  \label{fig: cobre}
+\end{figure}
