@@ -1,0 +1,8 @@
+#Target #Estandar
+Sirio   A   HR 1544 A
+Regulus B8   HR 3454 B3
+Rigel   B8  Hiltner 600  B1
+Bellatrix   B2   Hiltner 600 B1
+Mirzam  B1  Hiltner 600 B1
+
+

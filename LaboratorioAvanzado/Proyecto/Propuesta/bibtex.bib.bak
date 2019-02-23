@@ -97,39 +97,6 @@ booktitle = {The A-Star Puzzle},
    volume =    {},
 }
 
-
-@ARTICLE{Przybilla,
-   author = {{Przybilla}, N.},
-    title = "{Non-LTE modelling of the He I 10830 {\AA} line in early-type main sequence stars}",
-  journal = {\aap},
-   eprint = {astro-ph/0508068},
- keywords = {line: formation, infrared: stars, stars: early-type},
-     year = 2005,
-    month = nov,
-   volume = 443,
-    pages = {293-296},
-      doi = {10.1051/0004-6361:20053412},
-   adsurl = {http://adsabs.harvard.edu/abs/2005A%26A...443..293P},
-  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
-}
-
-@ARTICLE{flux4Hubble,
-   author = {{Stone}, R.~P.~S.},
-    title = "{Spectrophotometry of Flux Calibration Stars for Hubble Space Telescope}",
-  journal = {\apjs},
- keywords = {TECHNIQUES: PHOTOMETRIC},
-     year = 1996,
-    month = nov,
-   volume = 107,
-    pages = {423},
-      doi = {10.1086/192369},
-   adsurl = {http://adsabs.harvard.edu/abs/1996ApJS..107..423S},
-  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
-}
-
-
-
-
 }
 
 

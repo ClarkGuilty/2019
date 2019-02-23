@@ -118,7 +118,7 @@ Sin embargo, dado que el eje de rotación de la estrella usualmente no es perpen
 \begin{equation}
 v_{rot} = V \sen (i).
 \end{equation}
-Esta proyección se puede apreciar mejor en la figura \ref{proyeccion}. En este trabajo al hablar de velocidad de rotación, siempre se hablará de la velocidad rotacional proyectada ($v_{rot}$)
+Esta proyección se puede apreciar mejor en la figura \ref{proyeccion}. En este trabajo al hablar de velocidad de rotación, siempre se hablará de la velocidad rotacional proyectada ($v_r$)
 
 \begin{figure}[h!]
   \centering
@@ -163,7 +163,7 @@ Para la toma de datos se utilizará el telescopio del observatorio Meade LX200 d
 %\subsection{Tablas}
 %Las Tablas deben ser lo más autocontenidas posibles. Sus títulos y  leyendas deben ser suficiente para explicar su contenido. Las tablas deben ser referidas desde el texto (ver Tabla \ref{Tabla1}). Si no se hace referencia a una tabla en particular, ésta se considera inútil para el artículo y debe ser suprimida
 
-Se espera tener al menos un espectro a más tardar la semana 8 del semestre. Una vez se tenga noches de observación exitosas, se procederá al análisis de los espectros que tomará desde la semana 8 hasta la 12. Se empezará a escribir el documento desde la semana 10 y continuará a un ritmo estable durante hasta la entrega final. En la semana 12 se presentará el avance con la velocidad de rotación proyectada de al menos una estrella. De la semana 12 hasta la entrega final del proyecto se procesará los nuevos espectros (si se logró continuar la toma de datos durante la temporada de lluvia) y se explorará mejores modelos o alternativas para el cálculo de la velocidad. En la semana 15 se entregará el documento final y se hará la presentación del poster. La revisión bibliográfica se realizó en la semana 5 y 6, y se realizará una última revisión en la semana 14 antes de la entrega final.
+
 
 
 
