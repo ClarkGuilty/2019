@@ -1,5 +1,2 @@
-Ángulo del crista	Tasa con 35kV
-theta/°	R(35kV)/Imp/s
-
-3,0	53,0
-4,0	16,0
+3.0	53.0
+4.0	16.0
