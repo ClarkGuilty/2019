@@ -25,6 +25,8 @@ def l(theta,n=1):
     return 2*d*np.sin(np.pi*theta/180)/n*1e10
 #theta = np.arange(3.0,55,0.1)
 
+def correccion(N):
+    return N/(1-N*90e-6)
 
 #parte 4
 def average(datos,i):
@@ -56,6 +58,7 @@ nombres = ["13kV","15kV","17kV","19kV","21kV","23kV","25kV","27kV","29kV", "31kV
 voltajes = np.array([datos[:,1],datos[:,2],datos[:,3],datos[:,4],datos[:,5],datos[:,6],datos[:,7],datos[:,8],datos[:,9],datos[:,10],datos[:,11],datos[:,12]])
 volts = np.linspace(13000,35000,12)
 lamdaMin = []
+voltajes = correccion(voltajes)
 #dictionary = dict(zip(nombres, voltajes))
 
 #for i in range(10):
@@ -72,36 +75,44 @@ f = 24
 zeta = 120
 lMin = []
 print("f es ",f,l(angulos4[f]))
-for nombre,voltaje in zip(nombres[:a],voltajes[:a]):
+heh = np.max(l(angulos4)) - np.min(l(angulos4))
+for nombre,voltaje, numVolt in zip(nombres[:a],voltajes[:a],volts):
 #    voltaje = voltaje/voltaje.sum()
 #    voltaje = voltaje/max(voltaje)
-    print(nombre,l(angulos4[np.argmax(voltaje[f:zeta])+f]), np.argmax(voltaje[f:zeta])+f)
+#    print(nombre,l(angulos4[np.argmax(voltaje[f:zeta])+f]), np.argmax(voltaje[f:zeta])+f)
     plt.plot(l(angulos4[:zeta]),voltaje[:zeta],label=nombre)
-#    plt.scatter(lambdaMin(volts), np.linspace(1200,100, 12) ,color = 'black')
-    plt.scatter(lambdaMin(volts), np.linspace(100,1700, 12) ,color = 'black')
+    plt.scatter(lambdaMin(numVolt), np.array([100]) , s= 500, marker='x')
+    
     lMin.append(l(angulos4[np.argmax(voltaje[f:zeta])+f])/1.5)
-
+#plt.scatter(lambdaMin(volts), 100*np.ones(len(volts)) ,color = 'black', label = r'$\lambda_{min}$ teórico')
 lMin = np.array(lMin)
 #plt.xlim(3,6)
 #plt.xlim(19,23)    
 #plt.ylim(0,0.2)
-#plt.ylim(-2000,2000) 
 plt.ylim(0,2000) 
+#plt.ylim(0,100) 
 #plt.ylim(8000,15000)
 plt.xlim(.3,.8)
 #plt.xlim(.9,1.1)
 plt.legend()
-plt.xlabel(r"$\lambda$",fontsize=20)
-#plt.savefig("Ley de Duane-Hunt.png")
+plt.ylabel('Conteos por 50s',fontsize=20)
+plt.xlabel(r"$\lambda$ [$\AA$]",fontsize=20)
+plt.title("Espectro con voltajes de 13 kV a 35 kV",fontsize=20 )
+plt.savefig("Ley de Duane-Hunt.png")
 
 
 
 
 
 plt.figure(figsize=(8,7))
-plt.scatter(volts,lMin)
-plt.plot(volts,lambdaMin(volts))
+plt.scatter(volts/1000,lMin, label = 'Datos')
+plt.plot(volts/1000,lambdaMin(volts), label ='Ley de Duane-Hunt')
+plt.ylabel(r"$\lambda$ mínimo",fontsize=20)
+plt.xlabel("Voltaje [kV]",fontsize=20)
+plt.title(r"$\lambda_{min}$ vs voltaje del ánodo", fontsize=20)
+plt.legend()
 
+plt.savefig("ley duane hunt.png",dpi=600)
 
 #parte 1
 
@@ -136,8 +147,7 @@ plt.plot(volts,lambdaMin(volts))
 #angulos2 = dZn0075[:,0]/2
 #angulos2Continuos = np.linspace(min(angulos2),max(angulos2),500)/2
 #
-#def correccion(N):
-#    return N/(1-N*90e-6)
+
 #
 #filtros = np.array([dAl002,dAl004,dAl006,dAl01,dZn0025,dZn0075,dZn01,dNo]) - ruidoPequeño 
 #filtros = correccion(filtros)
