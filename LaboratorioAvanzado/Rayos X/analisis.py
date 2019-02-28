@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.optimize import curve_fit
 from scipy.stats import linregress
+from scipy.signal import find_peaks
 
 #para el LiF
 d = 2.014*1e-10 #metros  (110)
@@ -34,6 +35,7 @@ def average(datos,i):
 
 def lambdaMin(voltaje):
     return hc/(e*voltaje)*1e10
+
 datos = np.loadtxt('parte4(21022019).txt', skiprows = 0, delimiter ="	")
 satan = datos[:,11]
 satan[30] = average(satan,30)
@@ -118,15 +120,16 @@ voltajes = correccion(voltajes)
 
 #parte 1
 
-
+#a = 350
 #plt.figure(figsize=(8,7))
 #datos1 = np.loadtxt('parte1LiF(21022019).txt', skiprows = 0, delimiter ="	")
 #theta1 = datos1[:,0]
 #conteos = datos1[:,1]/3
 #plt.plot(l(theta1),conteos)
-##plt.xlim(0.3,0.8)
-##plt.ylim(0,500)
+##plt.xlim(0.3,0.5)
+##plt.ylim(0,200)
 ##plt.scatter([lambdaMin(volts[-1])], [20],color='black')
+#print(l(theta1[np.argmax(conteos[a:])+a]))
 #plt.ylabel('Intensidad (conteos / s)',fontsize=16)
 #plt.xlabel(r"Longitud de onda ($\AA$)",fontsize=16)
 #plt.title(r"Primer y segundo orden de $K_{\alpha_1}$, $K_{\alpha_2}$ y $K_{\beta}$ en Cu", fontsize = 16)
@@ -232,7 +235,7 @@ plt.xlim(0.000,0.011)
 plt.title(r"Intensidad normalizada vs grosor de la lámina a 0.420 $\AA$",fontsize=16)
 plt.legend()
 
-plt.savefig("intensidad.png")
+plt.savefig("intensidad.png",dpi=600)
 
 
 muAl = np.array(muAl)
@@ -258,9 +261,9 @@ plt.errorbar(murhoZn[a:],l(angulos2[a:])*30,label='Datos Zn',yerr=sigmaZn,fmt='o
 plt.plot(murhoZn[a:],mZn*murhoZn[a:]+bZn ,label = r"Modelo $R^2$ = {:.3}".format(rZn*rZn))
 plt.ylabel(r'$\lambda Z$ ($\AA$)', fontsize=16)
 plt.xlabel(r'($\frac{\mu}{\rho}$)$^{1/3}$ $(\frac{mm^2}{g}$)$^{1/3}$', fontsize=24)
-plt.title("Longitud de onda vs raíz cúbica de la atenuación por densidad",fontsize=14)
+plt.title("Longitud de onda vs raíz cúbica de la atenuación por densidad",fontsize=16)
 plt.legend()
-plt.savefig("LvsMu.png")
+plt.savefig("LvsMu.png", dpi = 600)
 #
 #
 #
