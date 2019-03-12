@@ -60,7 +60,7 @@ nombres = ["13kV","15kV","17kV","19kV","21kV","23kV","25kV","27kV","29kV", "31kV
 voltajes = np.array([datos[:,1],datos[:,2],datos[:,3],datos[:,4],datos[:,5],datos[:,6],datos[:,7],datos[:,8],datos[:,9],datos[:,10],datos[:,11],datos[:,12]])
 volts = np.linspace(13000,35000,12)
 lamdaMin = []
-voltajes = correccion(voltajes)
+#voltajes = correccion(voltajes)
 #dictionary = dict(zip(nombres, voltajes))
 
 #for i in range(10):
@@ -74,16 +74,18 @@ voltajes = correccion(voltajes)
 #plt.figure(figsize=(8,7))
 #a=12
 #f = 24
-#zeta = 120
+##zeta = 120
+#zeta = len(voltajes[0])
 #lMin = []
 #print("f es ",f,l(angulos4[f]))
 #heh = np.max(l(angulos4)) - np.min(l(angulos4))
 #for nombre,voltaje, numVolt in zip(nombres[:a],voltajes[:a],volts):
+##    voltaje = correccion(voltaje)
 ##    voltaje = voltaje/voltaje.sum()
 ##    voltaje = voltaje/max(voltaje)
 ##    print(nombre,l(angulos4[np.argmax(voltaje[f:zeta])+f]), np.argmax(voltaje[f:zeta])+f)
 #    plt.plot(l(angulos4[:zeta]),voltaje[:zeta],label=nombre)
-#    plt.scatter(lambdaMin(numVolt), np.array([100]) , s= 500, marker='x')
+##    plt.scatter(lambdaMin(numVolt), np.array([100]) , s= 500, marker='x')
 #    
 #    lMin.append(l(angulos4[np.argmax(voltaje[f:zeta])+f])/1.5)
 ##plt.scatter(lambdaMin(volts), 100*np.ones(len(volts)) ,color = 'black', label = r'$\lambda_{min}$ teórico')
@@ -91,10 +93,10 @@ voltajes = correccion(voltajes)
 ##plt.xlim(3,6)
 ##plt.xlim(19,23)    
 ##plt.ylim(0,0.2)
-#plt.ylim(0,2000) 
+##plt.ylim(0,2000) 
 ##plt.ylim(0,100) 
 ##plt.ylim(8000,15000)
-#plt.xlim(.3,.8)
+##plt.xlim(.3,.8)
 ##plt.xlim(.9,1.1)
 #plt.legend()
 #plt.ylabel('Conteos por 50s',fontsize=20)
@@ -175,25 +177,25 @@ plt.xlabel(r"Longitud de onda ($\AA$)",fontsize=16)
 plt.ylabel(r"Intensidad normalizada",fontsize=16)
 plt.savefig('conteosNormalizados.png',dpi=600)
 
-#plt.figure(figsize=(8,7))
-#for nombre,filtro in zip(nombres[0:],filtros[0:]):
-#    plt.plot(angulos2,filtro[:,1]*dNo[:,1],label=nombre)
-##    print(nombre,filtro.shape, angulos2[np.argmax( filtro[:,1]) ])
-##    i+=1
-#
-#plt.legend(loc=2)
-#plt.title("Conteos contra longitud de onda",fontsize=16)
-#plt.savefig('conteos.png')
+plt.figure(figsize=(8,7))
+for nombre,filtro in zip(nombres[0:],filtros[0:]):
+    plt.plot(angulos2,filtro[:,1]*dNo[:,1],label=nombre)
+#    print(nombre,filtro.shape, angulos2[np.argmax( filtro[:,1]) ])
+#    i+=1
+
+plt.legend(loc=2)
+plt.title("Conteos contra longitud de onda",fontsize=16)
+plt.savefig('conteos.png')
 
 
-#plt.figure(figsize=(7,6))
-#for nombre,filtro in zip(nombres[4:],filtros[4:-1]):
-#    plt.plot(angulos2,filtro[:,1],label=nombre)
-##    print(i,filtro.shape)
-##    i+=1
-#
-#plt.legend()
-#plt.savefig('atenuacionZn.png')
+plt.figure(figsize=(7,6))
+for nombre,filtro in zip(nombres[4:],filtros[4:-1]):
+    plt.plot(angulos2,filtro[:,1],label=nombre)
+#    print(i,filtro.shape)
+#    i+=1
+
+plt.legend()
+plt.savefig('atenuacionZn.png')
 
 
 
@@ -236,34 +238,34 @@ plt.title(r"Intensidad normalizada vs grosor de la lámina a 0.420 $\AA$",fontsi
 plt.legend()
 
 plt.savefig("intensidad.png",dpi=600)
-
-
-muAl = np.array(muAl)
-muZn = np.array(muZn)
-
-
-
-murhoAl = np.cbrt(muAl/(2.7/1000)*1e1)
-#murhoAl = np.cbrt(muAl/26.98)
-#murhoAl = muAl
-mAl, bAl, rAl, p, sigmaAl = linregress(murhoAl[1:],l(angulos2[1:])*13)
-
-murhoZn = np.cbrt(muAl/(7.14/1000)*1e1)
-#murhoZn = np.cbrt(muZn/(65.38))
-#murhoZn = muZn
-a = 1
-mZn, bZn, rZn, p, sigmaZn = linregress(murhoZn[a:],l(angulos2[a:])*30)
-
-plt.figure(figsize=(7,6))
-plt.errorbar(murhoAl[1:],l(angulos2[1:])*13,label='Datos Al',yerr=sigmaAl,fmt='o')
-plt.plot(murhoAl[1:],mAl*murhoAl[1:]+bAl ,label = r"Modelo $R^2$ = {:.3}".format(rAl*rAl))
-plt.errorbar(murhoZn[a:],l(angulos2[a:])*30,label='Datos Zn',yerr=sigmaZn,fmt='o')
-plt.plot(murhoZn[a:],mZn*murhoZn[a:]+bZn ,label = r"Modelo $R^2$ = {:.3}".format(rZn*rZn))
-plt.ylabel(r'$\lambda Z$ ($\AA$)', fontsize=16)
-plt.xlabel(r'($\frac{\mu}{\rho}$)$^{1/3}$ $(\frac{mm^2}{g}$)$^{1/3}$', fontsize=24)
-plt.title("Longitud de onda vs raíz cúbica de la atenuación por densidad",fontsize=16)
-plt.legend()
-plt.savefig("LvsMu.png", dpi = 600)
+#
+#
+#muAl = np.array(muAl)
+#muZn = np.array(muZn)
+#
+#
+#
+#murhoAl = np.cbrt(muAl/(2.7/1000)*1e1)
+##murhoAl = np.cbrt(muAl/26.98)
+##murhoAl = muAl
+#mAl, bAl, rAl, p, sigmaAl = linregress(murhoAl[1:],l(angulos2[1:])*13)
+#
+#murhoZn = np.cbrt(muAl/(7.14/1000)*1e1)
+##murhoZn = np.cbrt(muZn/(65.38))
+##murhoZn = muZn
+#a = 1
+#mZn, bZn, rZn, p, sigmaZn = linregress(murhoZn[a:],l(angulos2[a:])*30)
+#
+#plt.figure(figsize=(7,6))
+#plt.errorbar(murhoAl[1:],l(angulos2[1:])*13,label='Datos Al',yerr=sigmaAl,fmt='o')
+#plt.plot(murhoAl[1:],mAl*murhoAl[1:]+bAl ,label = r"Modelo $R^2$ = {:.3}".format(rAl*rAl))
+#plt.errorbar(murhoZn[a:],l(angulos2[a:])*30,label='Datos Zn',yerr=sigmaZn,fmt='o')
+#plt.plot(murhoZn[a:],mZn*murhoZn[a:]+bZn ,label = r"Modelo $R^2$ = {:.3}".format(rZn*rZn))
+#plt.ylabel(r'$\lambda Z$ ($\AA$)', fontsize=16)
+#plt.xlabel(r'($\frac{\mu}{\rho}$)$^{1/3}$ $(\frac{mm^2}{g}$)$^{1/3}$', fontsize=20)
+#plt.title("Longitud de onda vs raíz cúbica de la atenuación por densidad",fontsize=16)
+#plt.legend()
+#plt.savefig("LvsMu.png", dpi = 600)
 #
 #
 #
