@@ -114,9 +114,9 @@ x = np.linspace(0,3,100)
 for I in [3/2,5/2]:
 #    print("Isotopo ",nombres[str(Fraction(I).limit_denominator())] )
     plt.figure()
-    plt.title("Frecuencia de la transición {:s}".format(nombres[str(Fraction(I).limit_denominator())]))
-    plt.xlabel("Intensidad de campo x")
-    plt.ylabel("Frecuencia del foton [Hz]")
+    plt.title("Frecuencia de la transición {:s}".format(nombres[str(Fraction(I).limit_denominator())]),fontsize=16)
+    plt.xlabel("Intensidad de campo x",fontsize=16)
+    plt.ylabel("Frecuencia del foton [Hz]",fontsize=16)
     for J in [-1/2,1/2]:
         for F in [J+I,J-I]: 
             for M in np.arange(-F,F+1):
@@ -124,6 +124,7 @@ for I in [3/2,5/2]:
                 
                 
     plt.legend()
+    plt.savefig('preinforme '+nombres[str(Fraction(I))]+'.png',dpi=600)
 
 
 I = 3/2
