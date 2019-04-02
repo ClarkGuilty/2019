@@ -28,11 +28,11 @@ print("punto 3.4")
 mean = 10
 std = 1
 m = 4
-print("La fracción de datos por fuera de {:d} es {:.8f}".format(m,1-err(mean-m*std,mean+m*std,mean,std)))
+print("La fracción de datos por fuera de {:d} es {:.8f}".format(m,err(mean-m*std,mean+m*std,mean,std)))
 m=5
-print("La fracción de datos por fuera de {:d} es {:.8f}".format(m,1-err(mean-m*std,mean+m*std,mean,std)))
+print("La fracción de datos por fuera de {:d} es {:.8f}".format(m,err(mean-m*std,mean+m*std,mean,std)))
 m=0.674489
-print("La fracción de datos dentro de {:.2f} es {:.8f}".format(m,err(mean-m*std,mean+m*std,mean,std)))
+print("La fracción de datos dentro de {:.2f} sigma es {:.8f}".format(m,err(mean-m*std,mean+m*std,mean,std)))
 m=3.291
 print("La fracción de datos dentro de {:.2f} es {:.8f}".format(m,err(mean-m*std,mean+m*std,mean,std)))
 
@@ -56,8 +56,8 @@ def cChauvenet(n,arr):
       mean = np.mean(arr)
       stdev = stdf(arr)
       x = arr[n]
-      print(x)
       diff = np.abs(x-mean)
+      print(x, mean -diff, mean+diff)
       pout = 1-err(mean-diff,mean+diff,mean,stdev)
 #      print(pout)
       return pout*arr.size
@@ -68,7 +68,7 @@ print("n_out es", cChauvenet(5,data))
 print("al ser menor que 0.5, se descarta el dato.")
 
 plt.figure()
-plt.hist(data, normed=True)
+plt.hist(data, density=True)
 plt.plot(xtest,gauss(xtest,np.mean(data),stdf(data)))
 
 
@@ -86,6 +86,7 @@ time = 15*60 #s
 xtest = np.arange(0,14)
 #y = poisson(xtest,rate)*60
 y = random.poisson(rate,time)*time
+
 
 
 print(np.mean(y))

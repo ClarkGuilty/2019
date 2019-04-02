@@ -24,7 +24,7 @@ def err(xi,xf,mean,std):
 def poisson(N,meanN):
       return np.exp(-meanN)*meanN**N/factorial(N)
 
-
+#
 #def z1(a):
 #      return 2*a
 #
@@ -35,7 +35,7 @@ def poisson(N,meanN):
 #      return (a-1)/(a+1)
 #
 #def z4(a):
-#      return a*a/(A-2)
+#      return a*a/(a-2)
 #
 #def z5(a):
 #      return np.math.asin(1/a)
@@ -59,9 +59,9 @@ def poisson(N,meanN):
 #
 #A = 9.274
 #da = 0.005
-#i = 0
+#i = 1
 #for f in [z1,z2,z3,z4,z5,z6,z7,z8,z9,z10]:
-#      print("Para Z_{:d} se tuvo {:.3f} \pm {:.3f}".format(i,f(A), f(A+da)-f(A)))
+#      print("Para Z_{:d} se tuvo {:.3 f} \pm {:.3f}".format(i,f(A), f(A+da)-f(A)))
 #      i+=1
       
       
@@ -103,12 +103,12 @@ def poisson(N,meanN):
 #def mZ10(a,b,c):
 #      return a*b*c
 #
-def errorAB(f,a,da,b,db):
-      total = ((f(a,b) - f(a+da,b))*da)**2 + ((f(a,b) - f(a,b+db))*db)**2
-      return np.sqrt(total)
+#def errorAB(f,a,da,b,db):
+#      total = ((f(a,b) - f(a+da,b)))**2 + ((f(a,b) - f(a,b+db)))**2
+#      return np.sqrt(total)
 #      
 #def errorABC(f,a,da,b,db,c,dc):
-#      total = ((f(a,b,c) - f(a+da,b,c))*da)**2 + ((f(a,b,c) - f(a,b+db,c))*db)**2 + ((f(a,b,c) - f(a,b,c+dc))*dc)**2
+#      total = ((f(a,b,c) - f(a+da,b,c)))**2 + ((f(a,b,c) - f(a,b+db,c)))**2 + ((f(a,b,c) - f(a,b,c+dc)))**2
 #      return np.sqrt(total)
 #      
 #
@@ -124,37 +124,44 @@ def errorAB(f,a,da,b,db):
 #n = 1.54
 #dn = 0.01
 #
-#def snell(n,thetai):
-#      return np.math.asin(np.sin(thetai) / n)
+#def snell(nn,thetai):
+#      return np.math.asin((np.sin(thetai) / n) % (2*np.pi))
+##    return np.sin(thetai) / nn
+#
+#heh1 = snell(n+dn,ti) - snell(n,ti)
+#heh2 = snell(n,ti+dti) - snell(n,ti)
+#print("1.",heh1**2)
+#print("2.",heh2**2)
+#print(np.sqrt(heh1**2 + heh2**2)*180/np.pi)
 #
 #print(snell(n,ti)*180/np.pi, errorAB(snell,n,dn,ti,dti)*180/np.pi)
 
 
-#print('punto 10:')
-#C = np.array([3.03,2.99,2.99,3.00,3.05,2.97])
-#dC = np.array([0.04,0.03, 0.02,0.05,0.04, 0.02])
-#
-#xCE = np.sum(C/dC/dC)/np.sum(1/dC**2)
-#aCE = np.sqrt(1 / np.sum(1/dC**2))
-#print("caso 0 {:.2f} \pm {:.2f}".format(xCE,aCE))
-#
-#C = np.array([3.03,2.99,2.99,3.00,3.05,2.97,3.00])
-#dC = np.array([0.04,0.03, 0.02,0.05,0.04, 0.02,0.3])
-#
-##print(np.mean(C), np.mean(dC))
-#
-#xCE = np.sum(C/dC/dC)/np.sum(1/dC**2)
-#aCE = np.sqrt(1 / np.sum(1/dC**2))
-#print("caso 1 {:.2f} \pm {:.2f}".format(xCE,aCE))
-#
-#C = np.array([3.03,2.99,2.99,3.00,3.05,2.97,3.00,4.01])
-#dC = np.array([0.04,0.03, 0.02,0.05,0.04, 0.02,0.3,0.01])
-#
-##print(np.mean(C), np.mean(dC))
-#
-#xCE = np.sum(C/dC/dC)/np.sum(1/dC**2)
-#aCE = np.sqrt(1 / np.sum(1/dC**2))
-#print("caso 2 {:.2f} \pm {:.2f}".format(xCE,aCE))
+print('punto 10:')
+C = np.array([3.03,2.99,2.99,3.00,3.05,2.97])
+dC = np.array([0.04,0.03, 0.02,0.05,0.04, 0.02])
+
+xCE = np.sum(C/dC/dC)/np.sum(1/dC**2)
+aCE = np.sqrt(1 / np.sum(1/dC**2))
+print("caso 0 {:.2f} \pm {:.2f}".format(xCE,aCE))
+
+C = np.array([3.03,2.99,2.99,3.00,3.05,2.97,3.00])
+dC = np.array([0.04,0.03, 0.02,0.05,0.04, 0.02,0.3])
+
+#print(np.mean(C), np.mean(dC))
+
+xCE = np.sum(C/dC/dC)/np.sum(1/dC**2)
+aCE = np.sqrt(1 / np.sum(1/dC**2))
+print("caso 1 {:.2f} \pm {:.2f}".format(xCE,aCE))
+
+C = np.array([3.03,2.99,2.99,3.00,3.05,2.97,3.00,4.01])
+dC = np.array([0.04,0.03, 0.02,0.05,0.04, 0.02,0.3,0.01])
+
+#print(np.mean(C), np.mean(dC))
+
+xCE = np.sum(C/dC/dC)/np.sum(1/dC**2)
+aCE = np.sqrt(1 / np.sum(1/dC**2))
+print("caso 2 {:.3f} \pm {:.3f}".format(xCE,aCE))
 
 
 print('tarea 5, punto 3:')
@@ -196,7 +203,7 @@ c = cReg(I,V)
 
 
 plt.scatter(I,V)
-plt.plot(I,m*I+c)
+plt.plot(I,m*I+c,color='orange')
 plt.xlabel("I [\mu A]")
 plt.ylabel("V [mV]")
 plt.title("V contra I")
@@ -204,22 +211,22 @@ plt.title("V contra I")
 
 residuals = V - (m*I+c)
 plt.figure()
-plt.plot(I,residuals)
+plt.scatter(I,residuals)
 print("Sobre los residuos: (media, std):")
 print(np.mean(residuals), np.std(residuals))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
