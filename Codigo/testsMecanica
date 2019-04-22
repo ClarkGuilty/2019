@@ -49,39 +49,41 @@ import matplotlib.pyplot as plt
 
 #Ecuación maestra punto 4.
 
-#nA = 1000
-#nB = 0
-#nC = 0
-#
-#r = 0.1
-#k1 = 0.5
-#k2 = 0.5
-#d = 0.2
-#t = 0
-#dt = 1e-3
-#
-#dpA = 0
-#dpB = r*nA-k1*nB+k2*nC
-#dpC = k1*nB-d*nC-k2*nC
-#
-#mediocridad = [nB]
-#epsilon = 0.001
-#
-#while(dpB >epsilon or dpC > epsilon):
-#    nB += dpB*dt
-#    nC += dpC*dt
-#    dpB = r*nA-k1*nB+k2*nC
-#    dpC = k1*nB-d*nC-k2*nC
-#    t+=dt
-#    mediocridad.append(nB)
-#    print(nA,nB,nC,nA+nB+nC)
-#
-#print(nA/nC,d/r,nB/nC,d/k1+k2/k1,"tiempo=",t)
+nA = 1
+nB = 0
+nC = 0
+
+r = 0.1
+k1 = 0.5
+k2 = 0.5
+d = 0.2
+t = 0
+dt = 1e-3
+
+dpA = 0
+dpB = r*nA-k1*nB+k2*nC
+dpC = k1*nB-d*nC-k2*nC
+
+epsilon = 0.0001
+
+while(dpB >epsilon or dpC > epsilon):
+    nB += dpB*dt
+    nC += dpC*dt
+    dpB = r*nA-k1*nB+k2*nC
+    dpC = k1*nB-d*nC-k2*nC
+    t+=dt
+    print(nA,nB,nC,nA+nB+nC)
+
+print(nA/nC,d/r,nB/nA,(1+k2/d)*r/k1,"tiempo=",t)
 #print("el <B> es: {}".format(nB/t))
-#    
-#med = np.array(mediocridad)
-#print(med.mean())
-    
+
+promed = nA*(1+r/k1+k2/k1*r/d+r/d)/3
+#sigma = nA**2*()
+
+print((nA+nB+nC)/3)
+sat = nA+nB*r/k1*(k2/d+1)+r/d*nC
+norm = 1+(1+k2/d)+r/k1 + r/d
+print(promed)    
     
     
     

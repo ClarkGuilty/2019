@@ -55,7 +55,7 @@ plt.plot(lambLinea,linea)
 plt.ylabel("Intensidad relativa [$F/F_{\lambda = 4481}$]", fontsize=18)
 plt.xlabel(r'($\lambda - \lambda_m)/\lambda_m$', fontsize=18)
 #plt.xlabel(r'$\frac{\lambda - \lambda_m}{\lambda_m}$', fontsize=18)
-plt.savefig("HR1544Mg4481B.png", dpi = 1000, transparent=True,bbox_inches='tight')
+plt.savefig("HR1544Mg4481B.png", dpi = 1000, bbox_inches='tight')
 #plt.plot(lamb,y3)
 
 from numpy import fft
