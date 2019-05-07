@@ -24,7 +24,7 @@ from astropy import units as u
 
 sp1 = np.loadtxt("fhr1544.dat")
 sp2 = np.loadtxt("mhr1544.dat")
-sp3 = np.loadtxt("hr1544Reducido.dat")
+sp3 = np.loadtxt("sirioReducido.dat")
 
 y1 = sp1[:,1]
 y2 = sp1[:,2]
@@ -33,11 +33,13 @@ y3 = sp2[:,1]
 lamb = sp1[:,0]
 lamb2 = sp3[:,0]
 y4 = sp3[:,1]
+
+
 #plt.plot(lamb,y1*2/(y1[203]+y1[202]))
 #plt.plot(lamb,y1)
-#plt.plot(lamb,y4])
+#plt.plot(lamb2,y4)
 conv0 = 2/(y1[202]+y1[203])
-heLine = 4480.4
+heLine = 4861
 ii = np.where(np.logical_and(lamb2<heLine+7,lamb2>heLine-7))
 
 #plt.plot(lamb2,y4/conv0*1e-7)
@@ -59,7 +61,7 @@ plt.savefig("HR1544Mg4481B.png", dpi = 1000, bbox_inches='tight')
 #plt.plot(lamb,y3)
 
 from numpy import fft
-
+from scipy.integrate import trapz
 #deltaSigma = 1.0/(linea.size * (lamb2[1]-lamb2[0]))
 #lineas = fft.fft(linea)
 #freq = fft.fftfreq(linea.size,deltaSigma)
@@ -92,7 +94,7 @@ linea = linea/np.max(linea)
 deltaSigma = 1.0/(linea.size * (lamb2[1]-lamb2[0]))
 lineas = fft.fft(linea)
 #freq = fft.fftfreq(linea.size,deltaSigma)
-freq = fft.fftfreq(linea.size)
+freq = fft.fftfreq(linea.size, dt = lambLinea[1]-lambLinea[0])
 iimax = 100
 #plt.xlim(0.008,0.00825)
 plt.figure()
@@ -101,16 +103,17 @@ plt.xlim(-0,0.02)
 #plt.ylim(-0.05,0.1)
 plt.xlabel("Frecuencias [hz]", fontsize=18)
 plt.ylabel("FFT normalizada", fontsize=18)
-plt.title("FFT de Mg 4481 en HR1544", fontsize=18)
+plt.title("FFT de H 4861 en HR1544", fontsize=18)
 plt.plot(freq,lineas.real/np.max(lineas.real))
 plt.scatter(freq,lineas.real/np.max(lineas.real), color = 'orange')
+#plt.xlim(0.0025,0.0050)
 plt.savefig("HR1544Mg4481.png", dpi = 1000, transparent=True,bbox_inches='tight')
 #plt.plot(freq,lineas.real)
 #plt.plot(lambLinea,linea)
 #plt.yscale('log',basey=10)
 
-from scipy.integrate import trapz
-A = trapz(y=linea.real,x=lambLinea)
+
+A = trapz(y=linea,x=lambLinea)
 #beta = 2*A/lineas.real[0]/np.pi
 #beta = A/lineas.real[lambLinea==0]*(3*np.pi+8)/(8*np.pi)
 #beta = A/lineas.real[1]*(3*np.pi+8)/(8*np.pi)
@@ -120,7 +123,7 @@ c = 299792458
 vsini = c*beta/1000
 
 #x = np.array([0.0345,0.096,freq[3]+3/4*(freq[4]-freq[3])])
-x = np.array([0.0071,0.00810,freq[3]+3/4*(freq[4]-freq[3])])
+x = np.array([0.0030,freq[2],freq[2]+1.3/4*(freq[3]-freq[2])])
 y = np.array([3.832,7.016,10.174])
 from scipy.stats import linregress
 from scipy.optimize import curve_fit
@@ -135,7 +138,8 @@ m,b,r,p,sigma = linregress(x,y)
 #plt.plot(x,m*x+b)
 #plt.scatter(x,y)
 #print(x/y)
-
+plt.scatter(x,y)
+plt.plot(x, x*m+b)
 heh, cvr = curve_fit(beta,x,y)
 #plt.plot(x,heh[0]*x)
 
