@@ -10,8 +10,8 @@ Created on Wed Apr 10 15:10:21 2019
 import numpy as np
 import matplotlib.pyplot as plt
 
-espectre = np.loadtxt("SirioProm.dat")
-star = 'Sirio'
+espectre = np.loadtxt("RigelProm.dat")
+star = 'Rigel'
 
 lamb = espectre[:,0]
 y4 = espectre[:,1]
@@ -20,9 +20,10 @@ dpi = 300
 #plt.plot(lamb,y4)
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
-line = 6563 #
+line = 4861  #
 lineS = str(line)
-ii = np.where(np.logical_and(lamb<line+7,lamb>line-7))
+strat = 8
+ii = np.where(np.logical_and(lamb<line+strat,lamb>line-strat))
 
 #plt.plot(lamb,y4/conv0*1e-7)
 plt.title(element+" "+lineS+" en "+star+" transformada" ,fontsize=20)
@@ -89,8 +90,8 @@ c = 299792458
 vsiniMax = c*beta*1e-3
 
 #x = np.array([0.0345,0.096,freq[3]+3/4*(freq[4]-freq[3])])
-x = np.array([recta(2),recta(4),recta(6)]) #se hace manualmente.
-x = np.array([ridder(funcionTestFourier,freq[0],freq[2]),ridder(funcionTestFourier,freq[1],freq[3]),ridder(funcionTestFourier,freq[3],freq[5])]) #se hace manualmente.
+#x = np.array([recta(2),recta(4),recta(6)]) #se hace manualmente.
+x = np.array([ridder(funcionTestFourier,freq[0],freq[2]),ridder(funcionTestFourier,freq[2],freq[3]),ridder(funcionTestFourier,freq[4],freq[5])]) #se hace manualmente.
 funcionTestFourier = interp1d(freq,lineas)
 
 yAlta = np.array([3.832,7.016,10.174])
@@ -108,12 +109,13 @@ plt.plot(x, x*m+b)
 
 def ff(x,mmm):    return x*mmm
 heh, cvr = curve_fit(ff,x,y)
-vsini2 = heh.mean()*c*2.0571e-5/1000
+#vsini2 = heh.mean()*c*2.0571e-5/1000
+vsini2 = heh.mean()*c*1e-4/1000
 #plt.plot(x,heh[0]*x)
 heh = y/(x)
 funcionRealFourier = interp1d(freq1,lineas,kind='quadratic')
-vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*2.0571e-5/1000
-vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[1])*10)*c*1e-4 #parece ser que el factor es 1e-3
+vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*1e-5/1000
+vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[2])*10)*c*1e-4 #parece ser que el factor es 1e-3
 
 
 def PlanB(w):
@@ -121,9 +123,9 @@ def PlanB(w):
 
 plt.figure()
 PlanB(freq)
-planB = np.zeros_like(freq)
-for i in range(len(freq)):
-    planB[i] = PlanB(freq[i])
+planB = np.zeros_like(freq1)
+for i in range(len(freq1)):
+    planB[i] = PlanB(freq1[i])
 
 plt.plot(freq,planB)
 

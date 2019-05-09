@@ -9,6 +9,8 @@ Created on Wed Apr 10 15:10:21 2019
 
 import numpy as np
 import matplotlib.pyplot as plt
+from astropy.io import fits
+from astropy import units as u
 
 espectre = np.loadtxt("SirioProm.dat")
 star = 'Sirio'
@@ -20,7 +22,7 @@ dpi = 300
 #plt.plot(lamb,y4)
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
-line = 6563 #
+line = 4861 #
 lineS = str(line)
 ii = np.where(np.logical_and(lamb<line+7,lamb>line-7))
 
@@ -31,6 +33,8 @@ plt.title(element+" "+lineS+" en "+star+" transformada" ,fontsize=20)
 linea = y4[ii]
 lambLinea = lamb[ii]
 lambLinea = (lamb[ii] - line)/line
+#plt.plot(lamb[ii],y4[ii]/conv0)
+#plt.xlim(min(lamb),6700)
 linea = np.max(linea) - linea
 linea = linea/np.max(linea)
 plt.plot(lambLinea,linea)
@@ -39,93 +43,86 @@ plt.xlabel(r'($\lambda - \lambda_m)/\lambda_m$', fontsize=18)
 #plt.xlabel(r'$\frac{\lambda - \lambda_m}{\lambda_m}$', fontsize=18)
 #plt.savefig("HR1544Mg4481B.png", dpi = dpi, bbox_inches='tight')
 
-
 from numpy import fft
-from scipy.fftpack import dct
 from scipy.integrate import trapz
-from scipy.interpolate import interp1d
-from scipy.optimize import ridder
+
 
 def find_nearest(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
     return array[idx], idx
 
-def recta(j):
-    yy2 = lineas[j+1]
-    xx2 = freq[j+1]
-    yy1 = lineas[j]
-    xx1 = freq[j]
-    mm = (yy2-yy1)/(xx2-xx1)
-    bb = yy2-mm*xx2
-    return  -bb/mm
 
+
+#linea = linea/linea[lambLinea==0]
+#linea = np.max(linea) - linea
 linea = linea/np.max(linea)
 deltaSigma = 1.0/(linea.size * (lamb[1]-lamb[0]))
-lineas = dct(np.abs(linea))
+lineas = fft.fft(linea)
 #freq = fft.fftfreq(linea.size,deltaSigma)
-freq1 = fft.fftfreq(linea.size, d = lambLinea[1]-lambLinea[0]) #El otro paper sí utiliza el espaciado.
-freq = fft.fftfreq(linea.size)*2*np.pi #Interesantemente, en el paper original no tienen encuenta el espaciado. u = 2*pi*k
-freqTest = np.linspace(np.min(freq),np.max(freq),1000)
+freq = fft.fftfreq(linea.size, d = lambLinea[1]-lambLinea[0])
 iimax = 100
-funcionTestFourier = interp1d(freq,lineas,kind='quadratic')
-#plt.xlim(0,1000)
+#plt.xlim(0.008,0.00825)
 plt.figure()
 plt.xlabel("Frecuencias [hz]", fontsize=18)
 plt.ylabel("FFT normalizada", fontsize=18)
 plt.title("FFT de H 4861 en "+star, fontsize=18)
-#plt.xlim(3500,4500)
-#plt.ylim(-0.025,0.0251)
-plt.xlim(0,0.43)
-
-plt.plot(freq,np.zeros_like(freq))
 plt.plot(freq,lineas.real/np.max(lineas.real),color = 'r')
 plt.scatter(freq,lineas.real/np.max(lineas.real), color = 'orange')
-plt.plot(freqTest,funcionTestFourier(freqTest)/np.max(lineas),color = 'blue')
+#plt.xlim(800,850)
+#plt.ylim(-0.1,0.1)
+plt.savefig(star+element+lineS+".png", dpi = dpi, transparent=True,bbox_inches='tight')
+#plt.plot(freq,lineas.real)
+#plt.plot(lambLinea,linea)
+#plt.yscale('log',basey=10)
+
 
 A = trapz(y=linea,x=lambLinea)
+#beta = 2*A/lineas.real[0]/np.pi
+#beta = A/lineas.real[lambLinea==0]*(3*np.pi+8)/(8*np.pi)
+#beta = A/lineas.real[1]*(3*np.pi+8)/(8*np.pi)
+#beta = 0.66/(freq[1] * line)
 beta = 2*A/linea[lambLinea==0]/np.pi
 c = 299792458
-vsiniMax = c*beta*1e-3
+vsiniMax = c*beta/1000
 
 #x = np.array([0.0345,0.096,freq[3]+3/4*(freq[4]-freq[3])])
-x = np.array([recta(2),recta(4),recta(6)]) #se hace manualmente.
-x = np.array([ridder(funcionTestFourier,freq[0],freq[2]),ridder(funcionTestFourier,freq[1],freq[3]),ridder(funcionTestFourier,freq[3],freq[5])]) #se hace manualmente.
-funcionTestFourier = interp1d(freq,lineas)
-
-yAlta = np.array([3.832,7.016,10.174])
-y = np.array([4.147,7.303,10.437])
+x = np.array([293,664,freq[2]+1.3/4*(freq[3]-freq[2])]) #se hace manualmente.
+y = np.array([3.832,7.016,10.174])
+yAlta = np.array([4.147,7.303,10.437])
 from scipy.stats import linregress
 from scipy.optimize import curve_fit
 
+def beta(x,m):
+    return m*x
 
 
 m,b,r,p,sigma = linregress(x,y)
-
+#plt.figure()
+#plt.plot(x,m*x+b)
+#plt.scatter(x,y)
+#print(x/y)
 plt.figure()
 plt.scatter(x,y)
 plt.plot(x, x*m+b)
+heh, cvr = curve_fit(beta,x,y)
 
-def ff(x,mmm):    return x*mmm
-heh, cvr = curve_fit(ff,x,y)
-vsini2 = heh.mean()*c*2.0571e-5/1000
 #plt.plot(x,heh[0]*x)
-heh = y/(x)
-funcionRealFourier = interp1d(freq1,lineas,kind='quadratic')
-vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*2.0571e-5/1000
-vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[1])*10)*c*1e-4 #parece ser que el factor es 1e-3
+heh = y/(x*1e4)
+vsini1 = 0.660/(line*x[0]*10)*c
+
+vsini2 = heh*c
+r
 
 
-def PlanB(w):
-    return np.trapz(y=lineas*np.cos(w*lambLinea),x=lambLinea)
 
-plt.figure()
-PlanB(freq)
-planB = np.zeros_like(freq)
-for i in range(len(freq)):
-    planB[i] = PlanB(freq[i])
 
-plt.plot(freq,planB)
+
+
+
+
+
+
 
 
 
