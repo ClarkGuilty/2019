@@ -112,7 +112,7 @@ vsini2 = heh.mean()*c*2.0571e-5/1000
 #plt.plot(x,heh[0]*x)
 heh = y/(x)
 funcionRealFourier = interp1d(freq1,lineas,kind='quadratic')
-vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*2.0571e-5/1000
+vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*7.6184671644343414e-06/line
 vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[1])*10)*c*1e-4 #parece ser que el factor es 1e-3
 
 
@@ -128,7 +128,7 @@ for i in range(len(freq)):
 plt.plot(freq,planB)
 
 
-
+print(vsini1, heh.std()*7.6184671644343414e-06/line*c)
 
 
 

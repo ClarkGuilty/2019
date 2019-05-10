@@ -20,7 +20,7 @@ dpi = 300
 #plt.plot(lamb,y4)
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
-line = 4861  #
+line = 6563  #
 lineS = str(line)
 strat = 8
 ii = np.where(np.logical_and(lamb<line+strat,lamb>line-strat))
@@ -94,8 +94,8 @@ vsiniMax = c*beta*1e-3
 x = np.array([ridder(funcionTestFourier,freq[0],freq[2]),ridder(funcionTestFourier,freq[2],freq[3]),ridder(funcionTestFourier,freq[4],freq[5])]) #se hace manualmente.
 funcionTestFourier = interp1d(freq,lineas)
 
-yAlta = np.array([3.832,7.016,10.174])
-y = np.array([4.147,7.303,10.437])
+y = np.array([3.832,7.016,10.174])
+yAlta = np.array([4.147,7.303,10.437])
 from scipy.stats import linregress
 from scipy.optimize import curve_fit
 
@@ -114,7 +114,7 @@ vsini2 = heh.mean()*c*1e-4/1000
 #plt.plot(x,heh[0]*x)
 heh = y/(x)
 funcionRealFourier = interp1d(freq1,lineas,kind='quadratic')
-vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*1e-5/1000
+vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*7.6184671644343414e-6/1000
 vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[2])*10)*c*1e-4 #parece ser que el factor es 1e-3
 
 
