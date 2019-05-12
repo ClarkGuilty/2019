@@ -20,11 +20,15 @@ dpi = 300
 #plt.plot(lamb,y4)
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
-line = 4861  #
+line = 4340.6 #
+#line = 4861 #
+line = 6563.5 #
 lineS = str(line)
-strat = 8
-ii = np.where(np.logical_and(lamb<line+strat,lamb>line-strat))
+ii = np.where(np.logical_and(lamb<line+5,lamb>line-5))
+iii = np.where(np.logical_and(lamb<line+15,lamb>line-15))
 
+plt.plot(lamb[iii],y4[iii])
+plt.figure()
 #plt.plot(lamb,y4/conv0*1e-7)
 plt.title(element+" "+lineS+" en "+star+" transformada" ,fontsize=20)
 #plt.ylabel("Flujo [J cm$^{-2}$ $\AA^{-1}$ s$^{-1} \ 10^{16}]$", fontsize=18)
@@ -91,7 +95,7 @@ vsiniMax = c*beta*1e-3
 
 #x = np.array([0.0345,0.096,freq[3]+3/4*(freq[4]-freq[3])])
 #x = np.array([recta(2),recta(4),recta(6)]) #se hace manualmente.
-x = np.array([ridder(funcionTestFourier,freq[0],freq[2]),ridder(funcionTestFourier,freq[2],freq[3]),ridder(funcionTestFourier,freq[4],freq[5])]) #se hace manualmente.
+x = np.array([ridder(funcionTestFourier,freq[0],freq[2]),ridder(funcionTestFourier,freq[2],freq[4]),ridder(funcionTestFourier,freq[4],freq[6])]) #se hace manualmente.
 funcionTestFourier = interp1d(freq,lineas)
 
 yAlta = np.array([3.832,7.016,10.174])

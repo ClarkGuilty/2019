@@ -21,9 +21,14 @@ dpi = 300
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
 line = 4340.2 #
+#line = 4861 #
+line = 6564 #
 lineS = str(line)
 ii = np.where(np.logical_and(lamb<line+5,lamb>line-5))
+iii = np.where(np.logical_and(lamb<line+15,lamb>line-15))
 
+plt.plot(lamb[iii],y4[iii])
+plt.figure()
 #plt.plot(lamb,y4/conv0*1e-7)
 plt.title(element+" "+lineS+" en "+star+" transformada" ,fontsize=20)
 #plt.ylabel("Flujo [J cm$^{-2}$ $\AA^{-1}$ s$^{-1} \ 10^{16}]$", fontsize=18)
@@ -91,7 +96,7 @@ vsiniMax = c*beta*1e-3
 
 #x = np.array([0.0345,0.096,freq[3]+3/4*(freq[4]-freq[3])])
 #x = np.array([recta(2),recta(4),recta(6)]) #se hace manualmente.
-x = np.array([ridder(funcionTestFourier,freq[0],freq[1]),ridder(funcionTestFourier,freq[2],freq[3]),ridder(funcionTestFourier,freq[3],freq[4])]) #se hace manualmente.
+x = np.array([ridder(funcionTestFourier,freq[0],freq[2]),ridder(funcionTestFourier,freq[2],freq[3]),ridder(funcionTestFourier,freq[3],freq[5])]) #se hace manualmente.
 funcionTestFourier = interp1d(freq,lineas)
 
 yAlta = np.array([3.832,7.016,10.174])
@@ -110,12 +115,12 @@ plt.plot(x, x*m+b)
 def ff(x,mmm):    return x*mmm
 heh, cvr = curve_fit(ff,x,y)
 #vsini2 = heh.mean()*c*2.0571e-5/1000
-vsini2 = heh.mean()*c*1e-5/1000
+vsini2 = heh.mean()*c*1.15e-5/1000/5
 #plt.plot(x,heh[0]*x)
 heh = y/(x)
 funcionRealFourier = interp1d(freq1,lineas,kind='quadratic')
-vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*1e-5/1000
-vsini4 = heh.mean()*1e-8*c, heh.std()*c*1e-8
+vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c/1.15e5/1000/5
+vsini4 = heh.mean()/1.15e8*c/5, heh.std()*c/1.15e8/5
 vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[2])*10)*c*1e-4 #parece ser que el factor es 1e-3
 
 

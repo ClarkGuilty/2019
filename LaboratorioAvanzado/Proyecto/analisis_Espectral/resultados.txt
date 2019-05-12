@@ -1,0 +1,6 @@
+star	vsinMeasured	sigmaMeasured	vsinReal	sigmaReal
+Sirio	17.1	2.92	15.0	2.9
+Rigel	22.6	9.1	25	3
+Mirzam	22.4	9.4	31	5
+Bellatrix	52.3	13.8	46	8
+HR1544	252.8	12.6	261.4	13.5
