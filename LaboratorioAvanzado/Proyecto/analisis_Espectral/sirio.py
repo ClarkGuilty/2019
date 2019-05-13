@@ -20,7 +20,7 @@ dpi = 300
 #plt.plot(lamb,y4)
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
-line = 4862#
+line = 6563#
 lineS = str(line)
 ii = np.where(np.logical_and(lamb<line+7,lamb>line-7))
 
@@ -41,7 +41,7 @@ plt.plot(lambLinea,linea)
 plt.ylabel("Intensidad relativa [$F/F_{\lambda = "+lineS+"}$]", fontsize=18)
 plt.xlabel(r'($\lambda - \lambda_m)/\lambda_m$', fontsize=18)
 #plt.xlabel(r'$\frac{\lambda - \lambda_m}{\lambda_m}$', fontsize=18)
-#plt.savefig("HR1544Mg4481B.png", dpi = dpi, bbox_inches='tight')
+plt.savefig(element+" "+lineS+".png", dpi = dpi, bbox_inches='tight')
 
 
 from numpy import fft
@@ -77,15 +77,18 @@ funcionTestFourier = interp1d(freq,lineas,kind='quadratic')
 plt.figure()
 plt.xlabel("Frecuencias [hz]", fontsize=18)
 plt.ylabel("FFT normalizada", fontsize=18)
-plt.title("FFT de H 4861 en "+star, fontsize=18)
+plt.title("FFT de "+element+" "+lineS+ " en "+star, fontsize=18)
 #plt.xlim(3500,4500)
 #plt.ylim(-0.025,0.0251)
 plt.xlim(0,0.43)
 
-plt.plot(freq,np.zeros_like(freq))
-plt.plot(freq,lineas.real/np.max(lineas.real),color = 'r')
-plt.scatter(freq,lineas.real/np.max(lineas.real), color = 'orange')
-plt.plot(freqTest,funcionTestFourier(freqTest)/np.max(lineas),color = 'blue')
+
+plt.plot(freq,lineas.real/np.max(lineas.real),color = 'green', label = 'Interpolación Lineal')
+plt.scatter(freq,lineas.real/np.max(lineas.real), color = 'red', label = 'Puntos de la transformada')
+plt.plot(freqTest,funcionTestFourier(freqTest)/np.max(lineas),color = 'blue', label = 'interpolación Cuadrática')
+plt.plot(freq,np.zeros_like(freq), color = 'black')
+plt.legend()
+plt.savefig("fft"+element+" "+lineS,dpi=dpi)
 
 A = trapz(y=linea,x=lambLinea)
 beta = 2*A/linea[lambLinea==0]/np.pi
@@ -116,13 +119,11 @@ vsini2 = heh.mean()*c*2.0571e-5/1000
 #plt.plot(x,heh[0]*x)
 heh = y/(x)
 funcionRealFourier = interp1d(freq1,lineas,kind='quadratic')
-<<<<<<< HEAD
 vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*2.0571e-5/1000
 vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[2])*10)*c*1e-4 #parece ser que el factor es 1e-3
-=======
 vsini3 = np.array([heh.mean()-heh.std(),heh.mean()+heh.std()])*c*7.6184671644343414e-06/line
 vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[1])*10)*c*1e-4 #parece ser que el factor es 1e-3
->>>>>>> 79e349d73fad1bb2fc60355c9c95bdc813813ca3
+
 
 
 def PlanB(w):

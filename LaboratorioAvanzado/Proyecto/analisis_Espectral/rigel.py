@@ -20,13 +20,10 @@ dpi = 300
 #plt.plot(lamb,y4)
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
-<<<<<<< HEAD
 line = 4340.6 #
 #line = 4861 #
 line = 6563.5 #
-=======
 line = 6563  #
->>>>>>> 79e349d73fad1bb2fc60355c9c95bdc813813ca3
 lineS = str(line)
 ii = np.where(np.logical_and(lamb<line+5,lamb>line-5))
 iii = np.where(np.logical_and(lamb<line+15,lamb>line-15))
