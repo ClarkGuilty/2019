@@ -41,8 +41,11 @@ plt.plot(x,m*x+b)
 
 plt.figure()
 xpos = np.arange(len(vReal))
-vReal[4] /= 2
-vMed[4] /= 2
+factor = 150
+vReal[4] -= factor
+vMed[4] -= factor
+#sigmaReal[4] /= factor
+#sigmaMed[4] /= factor
 for i, color in zip(xpos,["blue","indigo","forestgreen","teal", "k"]):
       
       plt.errorbar([xpos[i]],vMed[i], yerr=[sigmaMed[i]],color = 'k', fmt='o')
@@ -51,11 +54,12 @@ for i, color in zip(xpos,["blue","indigo","forestgreen","teal", "k"]):
       plt.errorbar([xpos[i]-0.05], vReal[i], color = 'r',yerr=[sigmaReal[i]], fmt='^')
 plt.scatter([xpos[i]-0.05], vReal[i], marker= '^',color = 'r', s = 50, label = 'Valor de la literatura')
 plt.errorbar([xpos[i]],vMed[i], yerr=[sigmaMed[i]],color = color, fmt='o', label = 'Valor medido')
-plt.xticks(xpos,estrellas,fontsize=13)
-plt.ylabel(r"Velocidad de rotación", fontsize=15)
+plt.xticks(xpos,estrellas,fontsize=14)
+plt.ylabel(r"Velocidad de rotación [km/s]", fontsize=16)
 plt.axhline(80,linestyle='--', color = 'black')
-plt.yticks((1+np.arange(7))*20,[20,40,60,80,100*2,120*2,140*2],fontsize=12)
-plt.legend()
+plt.yticks((1+np.arange(7))*20,[20,40,60,80,100+factor,120+factor,140+factor],fontsize=12)
+plt.legend(prop={'size': 14})
+plt.title("Velocidades de rotación", fontsize=18)
 plt.savefig("resultados.png",dpi = 1000)
 #plt.yticks()
 

@@ -16,7 +16,7 @@ star = 'Sirio'
 lamb = espectre[:,0]
 y4 = espectre[:,1]
 
-dpi = 300
+dpi = 500
 #plt.plot(lamb,y4)
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
@@ -75,7 +75,7 @@ iimax = 100
 funcionTestFourier = interp1d(freq,lineas,kind='quadratic')
 #plt.xlim(0,1000)
 plt.figure()
-plt.xlabel("Frecuencias [hz]", fontsize=18)
+plt.xlabel(r"Frecuencias [ciclos$^{-1}$]", fontsize=18)
 plt.ylabel("FFT normalizada", fontsize=18)
 plt.title("FFT de "+element+" "+lineS+ " en "+star, fontsize=18)
 #plt.xlim(3500,4500)
@@ -87,8 +87,8 @@ plt.plot(freq,lineas.real/np.max(lineas.real),color = 'green', label = 'Interpol
 plt.scatter(freq,lineas.real/np.max(lineas.real), color = 'red', label = 'Puntos de la transformada')
 plt.plot(freqTest,funcionTestFourier(freqTest)/np.max(lineas),color = 'blue', label = 'interpolación Cuadrática')
 plt.plot(freq,np.zeros_like(freq), color = 'black')
-plt.legend()
-plt.savefig("fft"+element+" "+lineS,dpi=dpi)
+plt.legend(prop={'size': 13})
+plt.savefig("fft"+element+" "+lineS,dpi=dpi,bbox_inches='tight')
 
 A = trapz(y=linea,x=lambLinea)
 beta = 2*A/linea[lambLinea==0]/np.pi
