@@ -21,9 +21,9 @@ dpi = 300
 #conv0 = 2/(y1[202]+y1[203])
 element = 'H'
 line = 4341.2 #
-line = 4861 #
+#line = 4861 #
 #line = 6564 #
-lineS = str(line)
+lineS = str(int(line))
 ii = np.where(np.logical_and(lamb<line+5,lamb>line-5))
 iii = np.where(np.logical_and(lamb<line+15,lamb>line-15))
 
@@ -77,16 +77,22 @@ funcionTestFourier = interp1d(freq,lineas,kind='quadratic')
 #plt.xlim(0,1000)
 plt.figure()
 plt.xlabel("Frecuencias [hz]", fontsize=18)
-plt.ylabel("FFT normalizada", fontsize=18)
-plt.title("FFT de H 4861 en "+star, fontsize=18)
+plt.ylabel(r"FFT de H$_{\gamma}$ en "+star, fontsize=20, labelpad=1)
+plt.yticks(fontsize=12)
+plt.xticks(fontsize=12)
+plt.title("Ceros sensibles a la interpolación", fontsize=20)
 #plt.xlim(3500,4500)
 #plt.ylim(-0.025,0.0251)
 plt.xlim(0,0.43)
 
-plt.plot(freq,np.zeros_like(freq))
-plt.plot(freq,lineas.real/np.max(lineas.real),color = 'r')
-plt.scatter(freq,lineas.real/np.max(lineas.real), color = 'orange')
-plt.plot(freqTest,funcionTestFourier(freqTest)/np.max(lineas),color = 'blue')
+
+plt.plot(freq,lineas.real/np.max(lineas.real),color = 'green', label = 'Interpolación Lineal')
+plt.scatter(freq,lineas.real/np.max(lineas.real), color = 'red', label = 'Puntos de la transformada')
+plt.plot(freqTest,funcionTestFourier(freqTest)/np.max(lineas),color = 'blue', label = 'interpolación Cuadrática')
+plt.plot(freq,np.zeros_like(freq), color = 'black')
+plt.legend(prop={'size': 13})
+plt.savefig("fft"+element+" "+lineS+'.png',dpi=dpi,bbox_inches='tight')
+
 
 A = trapz(y=linea,x=lambLinea)
 beta = 2*A/linea[lambLinea==0]/np.pi
@@ -126,13 +132,13 @@ vsini1 = 0.660/(line*ridder(funcionTestFourier,freq[0],freq[2])*10)*c*1e-4 #pare
 def PlanB(w):
     return np.trapz(y=lineas*np.cos(w*lambLinea),x=lambLinea)
 
-plt.figure()
-PlanB(freq)
-planB = np.zeros_like(freq1)
-for i in range(len(freq1)):
-    planB[i] = PlanB(freq1[i])
+#plt.figure()
+#PlanB(freq)
+#planB = np.zeros_like(freq1)
+#for i in range(len(freq1)):
+#    planB[i] = PlanB(freq1[i])
 
-plt.plot(freq,planB)
+#plt.plot(freq,planB)
 
 
 
