@@ -65,10 +65,9 @@
 \renewcommand{\footrulewidth}{0,5pt}
 
 \begin{document}
-\title{Informe para Jaime: semana 5}
+\title{Informe para Jaime: semana 6}
 \author{
 \textbf{Javier Alejandro Acevedo Barroso\thanks{e-mail: \texttt{ja.acevedo12@uniandes.edu.co}}}\\
-%\textbf{Boris Nicolás Saenz Rodríguez\thanks{e-mail: \texttt{bn.saenz10@uniandes.edu.co}}}\\
 \textit{Universidad de los Andes, Bogotá, Colombia}\\
 } % Hasta aquí llega el bloque "author" (son dos autores por informe, orden alfabético)
 
@@ -90,7 +89,6 @@
 \section{Objetivos semanales}
 \begin{enumerate}
 \item Implementar test de masa y energía.
-\item Hacer invarianza Galileana con $k/k_j = 1.1$.
 \item Hacer prueba de inestabilidad de Jeans con un $\bar{\rho}$ sin estar definido por $T = (G \bar{\rho})^{-1/2}$
 
 
@@ -106,26 +104,55 @@ A partir de ahí, se calculó el cambio en la masa a través de:
 \delta M = \frac{M(t) - M(0)}{M(0)}.
 \end{equation}
 
-Para la energía, se calculó la energía cinética total del sistema como $K$:
+La evolución del $\delta M$ fue cero completo  en todos los instantes.
+
+Para la energía, se calculó la energía cinética total del sistema $K(t)$ como :
 \begin{equation}
 K(t) = \frac{1}{2} \sum_{X_\text{min}}^{X_\text{max}} \sum_{V_\text{min}}^{V_\text{max}} f(x,v,t) v^2 \Delta v \Delta x,
 \end{equation}
-y la energía potencial $U$ como:
+y la energía potencial $U(t)$ como:
 \begin{equation}
 U(t) = \frac{1}{2} \sum_{X_\text{min}}^{X_\text{max}} \rho(x) \phi(x) \Delta x.
 \end{equation}
 
-A continuación se presenta la evolución temporal de $E(t) = U(t) + K(t)$
 
+
+A continuación se presenta la evolución temporal de la energía potencial, cinética, la energía total, y la diferencia entre energía potencial y cinética. 
+
+
+\begin{figure}[h]
+  \centering
+   \includegraphics[scale= 0.8]{sadGraph0.png}
+  \label{sadGraph0}
+\end{figure}
+
+La línea negra representa la energía inicial del sistema.
+
+A continuación se presenta la misma gráfica, pero fijando la energía potencial inicial en cero.
+
+\begin{figure}[h]
+  \centering
+   \includegraphics[scale= 0.8]{sadGraph.png}
+  \label{sadGraph}
+\end{figure}
+
+\newpage
 
 \section{Fijar $\bar{\rho}$}
-Corrí la simulación con V = 2, L = 1, T =1 y $\bar{\rho}$ Siendo la mitad del calculado con T. 
+Recapitulando, $T = (\bar{\rho} G)^{-1/2}$ y hasta ahora siempre había fijado $V = L/T$, donde $V$ se usa para definir el dominio del espacio de fase.
+
+Corrí la simulación con $V = 2$, $L = 1$, $T =1$, la densidad promedio sería $\bar{\rho} = 1/(G T^2) = 4$ 
 No se logró observar la inestabilidad de Jeans.
 
-Notando que en el paper \citet{2013ApJ...762..116Y} (figura 9) se habla de que la dinámica del sistema depende no solo del $\sigma$ de velocidad, sino de la relación $\sigma / \Delta v$.
-Hice el experimento de duplicar la resolución del sistema, de forma que a pesar de reducir el $\bar{\rho}$ y la dispersión de velocidad $\sigma = \sqrt{\frac{4 \pi G \bar{\rho}}{k^2}}$, la relación $\sigma / \Delta v$ es en realidad mayor.
+
+Corrí la simulación con $V = 2$, $L = 1$, $T =1$ y $\bar{\rho}$ Siendo la mitad del calculado con $T$. 
+No se logró observar la inestabilidad de Jeans.
+
+Notando que en el paper \citet{2013ApJ...762..116Y} (figura 9) se habla de que la dinámica del sistema depende no solo del $\sigma$ de velocidad, sino de la relación $\sigma / \Delta v$, hice el experimento de duplicar la resolución del sistema, de forma que a pesar de reducir el $\bar{\rho}$ y la dispersión de velocidad $\sigma = \sqrt{\frac{4 \pi G \bar{\rho}}{k^2}}$, la relación $\sigma / \Delta v$ es en realidad mayor.
 En este caso, se activó la inestabilidad de Jeans.
 
+En la figura (9) del artículo se muestra que la evolución del coeficiente de Fourier termina estando determinada por $\sigma / \Delta v$.
+Voy a intentar reproducirla en mi trabajo y llevarla a la reunión.
 
 \bibliographystyle{unsrtnat} % estilo de las referencias 
 \bibliography{bibTes.bib} %archivo con los datos de los artículos citados
@@ -145,10 +172,7 @@ En este caso, se activó la inestabilidad de Jeans.
 %Astrophysics,} in International Series in Natural Philosophy, Vol 110, Edited
 %by \textit{D. Ter Haar}, (Pergamon Press, Oxford).
 %\end{thebibliography}
-
-
-Aún no entiendo el motivo del rápido decaimiento para $A_2$ con $U=\sigma$.
-Planeo explorar diferentes límites en la velocidad para evitar completamente la pérdida de masa. Mañana mostraré los resultados.
+.
 %Fin del documento
 \end{document}
 
