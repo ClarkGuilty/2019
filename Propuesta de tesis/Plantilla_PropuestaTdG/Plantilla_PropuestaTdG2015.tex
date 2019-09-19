@@ -17,7 +17,7 @@
 
 \begin{center}
 \Huge
-Título de la Monografía
+Búsqueda de estrellas variables usando algoritmos de Machine Learning
 
 \vspace{3mm}
 \Large Javier Alejandro Acevedo Barroso
@@ -64,12 +64,13 @@ Crear catálogos de estrellas variables sobre galaxias del proyecto Araucaria usa
 %Objetivos específicos del trabajo. Empiezan con un verbo en infinitivo.
 
 \begin{itemize}
-	\item Realizar fotometría PSF usando los datos públicos del proyecto Araucaria de las galaxias NGC 300, NGC 247 y NGC 7793 para generar series de tiempo de magnitud para su población estelar.
-	\item Implementar un clasificador de estrellas variables utilizando el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
-	\item Crear un espacio de características (\tqt{features}) significativas de las curvas de luz, y proyectar las curvas en ese espacio.
+	\item Realizar fotometría PSF usando los datos públicos de alguna de las galaxias del proyecto Araucaria tales, como NGC 300, NGC 247 y NGC 7793, con el fin de generar series de tiempo de magnitud para su población estelar.
+	\item Implementar un clasificador de estrellas variables utilizando el catálogo de series de tiempo de estrellas variables del proyecto OGLE (Optical Gravitational Lensing Experiment).
+	\item Definir un espacio de características (\tqt{features}) significativas de las curvas de luz, y proyectar las curvas en ese espacio.
+	\item Reencontrar las estrellas variables previamente reportadas para la galaxia, en particular las de tipo Cefeida.
 	\item Generar un catálogo de estrellas candidatas a estrellas variables con los datos del proyecto Araucaria utilizando el buscador entrenado previamente.
 	\item Encontrar las estrellas de tipo Cefeida previamente detectadas en las galaxias de interés.
-	\item Generar un catálogo de estrellas variables y candidatas fuertes con los datos del proyecto Araucaria.
+	\item Generar un catálogo final de estrellas variables y candidatas fuertes con los datos del proyecto Araucaria.
 \end{itemize}
 
 \section{Metodología}
@@ -85,26 +86,39 @@ Aqu\'i texto.
 \section{Cronograma}
 
 \begin{table}[htb]
-	\begin{tabular}{|c|cccccccccccccccc| }
+	\begin{tabular}{|c|ccccccccccccc| }
 	\hline
-	Tareas $\backslash$ Semanas & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16  \\
+	Tareas $\backslash$ Periodo & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13   \\
 	\hline
-	1 & X & X &   &   &   &   &   & X & X &   &   &   &   &   &   &   \\
-	2 &   & X & X &   & X & X & X &   &   & X & X & X &   & X & X &   \\
-	3 &   &   &   & X &   &   &   & X &   &   &   & X &   &   & X &   \\
-	4 & X & X & X & X & X & X & X & X & X & X &   &   &   &   &   &   \\
-	5 &   &   &   &   & X &   &   &   & X &   &   & X &   &   & X &   \\
-	\hline
+	1 & X & X & X &   &   &   &   &  &  &   &   &   &      \\
+	2 & X & X & X & X  &   &   &   &  &  &   &   &   &      \\	
+	3 &  &  &  & X & X  &   &   &  &  &   &   &   &      \\
+	4 &  &  &  &   & X & X  & X  & X & X &   &   &   &      \\
+	5 & X & X &  &  &   &  X & X  &  &  &   &   &   &      \\
+	6 & X & X &  &   &  &  &   &  &  &   &   &   &      \\
+	7 &  &  & X &  X & X  & X  & X  & X & X & X  &   &   &      \\
+	8 &  &  &  &   &   &   &   & X & X &  X &   &   &      \\
+	9 &  &  &  &   &   &   &   &  &  & X  & X  & X  &      \\
+	10 & X & X & X & X  & X  & X  &  X & X & X & X  & X  & X  &      \\
+	11 &  &  &  &   &   &   & X  & X &  &   &  X &  X &      \\ \hline
 	\end{tabular}
 \end{table}
 \vspace{1mm}
 
 \begin{itemize}
-	\item Tarea 1: Descripci\'on de la tarea 1
-	\item Tarea 2: Descripci\'on de la tarea 2
-	\item Tarea 3: Descripci\'on de la tarea 3
-	\item ...
+	\item Tarea 1: revisión bibliográfica.
+	\item Tarea 2: descargar las imágenes del repositorio público de ESO correspondientes al proyecto Araucaria, así como las imágenes de calibración y realizar el correspondiente procesamiento.
+	\item Tarea 3: realizar fotometría PSF sobre las imágenes procesadas y obtener catálogos de magnitud y coordenadas de la estrella en el chip.
+	\item Tarea 4: realizar el cross-matching de las estrellas en los catálogos de fotometría para obtener series de tiempo para cada estrella.
+	\item Tarea 5: definir un espacio de características en el que se pueda proyectar las curvas de luz reteniendo la mayor cantidad de información.
+	\item Tarea 6: descargar las series de tiempo clasificadas del proyecto OGLE y proyectarlas al espacio de características.
+	\item Tarea 7: diseñar un clasificador usando algoritmos de Machine Learning y explorar el espacio de hiperparámetros para optimizar los resultados.
+	\item Tarea 8: usar el clasificador sobre las curvas de luz generadas para el proyecto Araucaria y clasificarlas. 
+	\item Tarea 9: explorar las estrellas candidatas, terminar la clasificación manualmente y generar el catálogo final.
+	\item Tarea 10: escribir el documento.
+	\item Tarea 11: preparar presentación o charla del proyecto.
 \end{itemize}
+
 
 \section{Personas Conocedoras del Tema}
 
@@ -117,16 +131,17 @@ Aqu\'i texto.
 	\item ...
 \end{itemize}
 
+\section{Consideraciones éticas}
+Todos los datos que se planea usar son públicos y se encuentran disponibles en la página de ESO.
+Todo el software utilizado para el desarrollo del proyecto es software Libre.
+En caso de hacer uso de software propietario, se tendrá la respectiva licencia.
+No se modificará ninguna muestra de datos.
+En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referencia y citación en el documento final.
+
 
 \begin{thebibliography}{10}
 
-\bibitem{Jerry} J. Banks. \textit{Discrete-Event System Simulation}. Fourth Edition. Prentice Hall International Series in Industrial and Systems Engineering, pg 86 - 116 y 219 - 235, (2005).
-
-\bibitem{Bronner} P. Bronner, A. Strunz, C. Silberhorn \& J.P. Meyn. European Journal of Physics, \textbf{30}, 1189-1200, (2009).
-
-\bibitem{LabInt} P. Díaz \& N. Barbosa: \textit{Obtención de números aleatorios}. Informe final del curso Laboratorio Intermedio. Universidad de Los Andes, Bogotá, Colombia, (2012).
-
-\bibitem{Stefannov} A. Stefanov , N. Gisin , O. Guinnard , L. Guinnard \& H. Zbinden. Journal of Modern Optics, \textbf{47}:4, 595-598, (2000).
+\bibliography{myBib.bib}
 
 \end{thebibliography}
 
