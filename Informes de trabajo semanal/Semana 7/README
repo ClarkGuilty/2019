@@ -1,0 +1,8 @@
+Para generar las gráficas, remitirse al repositorio
+
+https://github.com/ClarkGuilty/Paper-CollDM
+
+y ejecutar 
+python ./energyTests/energyPlots.py 
+
+
