@@ -51,7 +51,7 @@
 \chead{\bfseries {}}
 \lhead{} % si se omite coloca el nombre de la seccion
 %\rhead{fecha del doc}
-\lfoot{\it Informe Semana 5.}
+\lfoot{\it Informe Semana 8.}
 \cfoot{ }
 \rfoot{Universidad de los Andes}
 %\rfoot{\thepage}
@@ -66,7 +66,7 @@
 \renewcommand{\footrulewidth}{0,5pt}
 
 \begin{document}
-\title{Informe para Jaime: semana 7}
+\title{Informe para Jaime: semana 8}
 \author{
 \textbf{Javier Alejandro Acevedo Barroso\thanks{e-mail: \texttt{ja.acevedo12@uniandes.edu.co}}}\\
 \textit{Universidad de los Andes, Bogotá, Colombia}\\
@@ -89,7 +89,7 @@
 %Introducción
 \section{Objetivos semanales}
 \begin{enumerate}
-\item Probar a 1024 mi código con inestabilidad usando solver de Fuka \citet{FUKA2015356}.
+\item Probar a 1024 mi código con inestabilidad usando solver de \citet{FUKA2015356}.
 \item Probar inestabilidad de Jeans para Mocz variando resolución (disminuir hasta una resolución mínima de 32).
 \end{enumerate}
 
@@ -125,8 +125,67 @@ A continuación presento la evolución temporal a 1024:
 
 También probé para 512, infortunadamente no se activa la inestabilidad de Jeans.
 
-                      
+
+\section{Conservación de energía para Mocz}
+Corrí la inestabilidad de Jeans con las mismas condiciones con las que corrí la mía en la sección anterior ($k/k_j = 0.5$) para diferentes resoluciones.
+Para N menor que 512 falla la inestabilidad de Jeans.
+Para N mayor a 512 se activa la inestabilidad de Jeans con una evolución temporal de energía idéntica.
+Para N igual a 512 se activa la inestabilidad de Jeans pero la evolución temporal es ligeramente diferente a las otras resoluciones que también activan la inestabilidad.
+
+A continuación presento la evolución temporal del a energía para los casos en los que no se activa la inestabilidad de Jeans.
+
+\begin{figure}[h]
+  \centering
+   \includegraphics[scale= 0.6]{JeansFails.png}
+%  \caption{ asd}
+  \label{fig: cobre}
+\end{figure}	
+
+Se observa que no se sobreponen las curvas pero que en general son variaciones pequeñas.
 \newpage
+
+A continuación la gráfica para los casos en los que se activa la inestabilidad de Jeans.
+
+
+\begin{figure}[h]
+  \centering
+   \includegraphics[scale= 0.6]{JeansActivates.png}
+%  \caption{ asd}
+  \label{fig: cobre}
+\end{figure}	
+
+El caso de N = 512 es el único que se separa. Los demás son completamente idénticos entre sí.
+
+Se observa a demás que el código de Mocz logra activar la inestabilidad a 512 mientras que el mío solo llega hasta 1024. Sin embargo la evolución energética parece indicar que no termina de converger a esa resolución.
+
+
+
+
+
+
+\newpage
+Por último, incluyo como lucen todas las curvas juntas
+
+\begin{figure}[h]
+  \centering
+   \includegraphics[scale= 0.6]{Jeans.png}
+%  \caption{ asd}
+  \label{fig: cobre}
+\end{figure}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      
 \bibliographystyle{unsrtnat} % estilo de las referencias 
 \bibliography{bibTes.bib} %archivo con los datos de los artículos citados
 
