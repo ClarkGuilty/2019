@@ -10,6 +10,7 @@
 \usepackage{braket}
 \usepackage{quotmark}
 \usepackage{datenumber}
+\usepackage{natbib}
 %\newdate{date}{10}{05}{2013}
 %\date{\displaydate{date}}
 
@@ -42,8 +43,23 @@ Director: Alejandro Garcia Varela
 
 %Introducción a la propuesta de Monografía. Debe incluir un breve resumen del estado del arte del problema a tratar. También deben aparecer citadas todas las referencias de la bibliografía (a menos de que se citen más adelante, en los objetivos o metodología, por ejemplo)
 
-La clasificación de estrellas de acuerdo a propiedades ópticas ha sido una de las tareas más útiles de la astrofísica y astronomía moderna.
-El proceso permite segregar estrellas y luego estudiar los mecanismos propios de cada categoría.
+La clasificación de estrellas de acuerdo a sus propiedades ópticas ha sido una de las tareas más útiles de la astronomía y astrofísica moderna.
+El proceso permite segregar estrellas y luego estudiar los mecanismos propios de cada categoría de forma independiente.
+Por ejemplo, las primeras estrellas variables se registraron durante el siglo XV, pero no fue sino hasta principios del siglo XX que se clasificó sus curvas de luz y se estudiaron las propiedades de las diferentes clases; en particular, esto llevó al descubrimiento de la relación periodo-luminosidad en las variables Cefeidas \citep{1908AnHar..60...87L} y la formulación del mecanismo $\kappa$.
+
+Adicionalmente, usando la relación periodo-luminosidad de una población Cefeida se puede medir la distancia a la población. Esto se usa para calcular distancias a galaxias cercanas y es parte fundamental de la escala de distancias.
+Por lo anterior, todas las mediciones que utilicen distancias mayores a 10 Mpc dependen fuertemente del cálculo de distancias usando variables Cefeidas, en particular, el parámetro de Hubble.
+Así, se vuelve esencial el mejoramiento de la precisón en la escala de distancias.
+En este contexto, nace el \tqt{Araucaria Project}.
+
+El Proyecto Araucaria es una colaboración entre astrónomos de instituciones chilenas, estadounidenses y europeas; con el fin de mejorar la precisión de la escala de distancias 
+
+%la detección de numerosas variables Cefeidas en todas las galaxias cercanas posibles. 
+
+
+
+
+
 
 
 
@@ -176,11 +192,11 @@ No se modificará ninguna muestra de datos.
 En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referencia y citación en el documento final.
 
 
-%\begin{thebibliography}{10}
 
-\bibliography{myBib.bib}
 
-%\end{thebibliography}
+\bibliography{mybib}
+\bibliographystyle{plainnat}
+
 
 \section*{ }
 
