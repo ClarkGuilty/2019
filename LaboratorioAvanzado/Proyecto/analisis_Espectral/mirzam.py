@@ -76,7 +76,7 @@ iimax = 100
 funcionTestFourier = interp1d(freq,lineas,kind='quadratic')
 #plt.xlim(0,1000)
 plt.figure()
-plt.xlabel("Frecuencias [hz]", fontsize=18)
+plt.xlabel(r"Frecuencias [ciclos$^{-1}$]", fontsize=18)
 plt.ylabel(r"FFT de H$_{\gamma}$ en "+star, fontsize=20, labelpad=1)
 plt.yticks(fontsize=12)
 plt.xticks(fontsize=12)

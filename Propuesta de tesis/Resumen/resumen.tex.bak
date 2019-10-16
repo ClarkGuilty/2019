@@ -2,7 +2,8 @@
 
 \usepackage{graphicx}
 \usepackage{epstopdf}
-\usepackage[spanish]{babel}
+\usepackage{aas_macros}
+\usepackage[spanish,polish]{babel}
 %\usepackage[english]{babel}
 \usepackage[latin5]{inputenc}
 \usepackage{hyperref}
@@ -33,56 +34,34 @@ Director: Alejandro Garcia Varela
 \normalsize
 \vspace{2mm}
 
-\today
+%\today
 \end{center}
 
 
 \normalsize
 \section*{Resumen}
 La clasificación de estrellas de acuerdo a las variaciones de su brillo es una de las actividades astronómicas más importantes desde finales del siglo XIX.
-Esta ha llevado a la detección de estrellas binarias, al mejoramiento de la escalera de distancias cosmológicas, y fuertes avances en astrofísica estelar.
+Esta ha llevado a la detección de estrellas binarias, al mejoramiento de la escala de distancias, y fuertes avances en astrofísica estelar.
 Por lo anterior, existen numerosos proyectos recolectando datos, en cantidades cada vez más grandes, con el fin de encontrar y clasificar estrellas variables.
-Los métodos tradicionales de búsqueda se han probado efectivos, pero al aumentar el tamaño de la muestra se vuelven ineficientes e incluso arbitrarios. Entonces, es necesaria la exploración de diferentes métodos para automatizar la búsqueda y mejorar los catálogos de estrellas variables.
+Los métodos tradicionales de búsqueda se han probado efectivos, pero al aumentar el tamaño y número de las observaciones se vuelven ineficientes, e incluso arbitrarios. Entonces, es necesaria la exploración de diferentes métodos para automatizar la búsqueda y mejorar los catálogos de estrellas variables.
 
-En este proyecto se busca entrenar un clasificador de estrellas variables que reciba series de tiempo y devuelva candidatos a estrella variables.
-Se procesarán datos públicos del proyecto Araucaria de la galaxia NGC 300 para obtener series de tiempo y utilizar el clasificador sobre ellas.
-Se reducirán observaciones en los filtros BVRI para 28 noches tomadas con el instrumento \tqt{Wide Field Imager} del telescopio MPG/ESO en La Silla.
-Se hará fotometría PSF y crossmatch de las observaciones utilizando la suite de software astronómico DAO de Peter Stetson, y se obtendrá series de tiempo.
-Siguiente, se usará el clasificador ya entrenado sobre las series y se generará un catálogo de estrellas candidatas.
+En este proyecto se busca entrenar un clasificador de estrellas variables que reciba series de tiempo y devuelva candidatos a estrellas variables.
+Se procesarán datos públicos del proyecto Araucaria de la galaxia NGC 55, NGC 247 y NGC7793  para obtener series de tiempo y utilizar el clasificador sobre ellas.
+Se reducirán observaciones en los filtros B y V para 25 a 30 épocas tomadas con el instrumento Wide Field Imager del telescopio MPG/ESO en La Silla.
+Se hará fotometría PSF y crossmatch de las observaciones utilizando la suite de software astronómico DAO de Peter Stetson, y se obtendrán series de tiempo.
+Posteriormente, se usará el clasificador ya entrenado sobre las series y se generará un catálogo de estrellas candidatas.
 Por último, se revisarán las candidatas y se reportarán las estrellas variables.
-El objetivo final del proyecto es generar un catálogo de estrellas variables para la galaxia NGC 300.
+El objetivo final del proyecto es generar un catálogo de estrellas variables para la galaxias.
 
 Como muestra de entrenamiento se utilizará las series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
-Para el clasificador se usarán algoritmos de vanguardia como: \tqt{Random forest}, \tqt{Gradient boosted forest}, diferentes arquitecturas de redes neuronales, entre otros.
+Para el clasificador se usarán algoritmos de vanguardia como: Random forest, Gradient boosted forest y diferentes arquitecturas de redes neuronales, entre otros.
 El código se escribirá principalmente en Python 3 haciendo uso de librerías libres como Numpy, Scikit-learn, Astropy, etc. 
 Dado el alto volumen de datos, se usará el Cluster de cómputo de alto rendimiento de la Facultad de Ciencias.
 
 
 
-\section*{Personas Conocedoras del Tema}
-
-%Nombres de por lo menos 3 profesores que conozcan del tema. Uno de ellos debe ser profesor de planta de la Universidad de los Andes.
-
-\begin{itemize}
-	\item Dra. Beatriz Eugenia Sabogal Martínez (Universidad de los Andes)
-	\item Dr. Ronnald Mennickent (Universidad de Concepción)
-	\item Dr. Grzegorz Pietrzynsky (Universidad de Concepción)	
-	\item Dr. Igor Soszy\'nski (Universidad de Varsovia)
-\end{itemize}
-
-No existe ningún conflicto de interés con las personas conocedoras del tema. Son en su mayoría lo astrónomos que en el pasado buscaron estrellas variables en la galaxia NGC 300 con los datos de proyecto Araucaria.
-
-
-\section*{ }
-
-\rule{5.3cm}{0.01cm} \hfill \rule{6.3cm}{0.01cm}
-
-
-Dr. Alejandro Garcia Varela. \hfill \hspace*{0mm}\phantom{Firma: }Javier Alejandro Acevedo Barroso.
-
-Directo de trabajo de grado. \hspace{3.28cm} Estudiante 201422995
-
-
+\bibliography{miBib.bib}
+\bibliographystyle{unsrt}
 
 
 
@@ -180,9 +159,4 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 
 
 
-%\begin{thebibliography}{10}
-
-\bibliography{myBib.bib}
-
-%\end{thebibliography}
 
