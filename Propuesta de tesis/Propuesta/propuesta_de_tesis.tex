@@ -2,7 +2,7 @@
 
 \usepackage{graphicx}
 \usepackage{epstopdf}
-\usepackage[spanish,polish]{babel}
+\usepackage[polish,spanish]{babel}
 %\usepackage[english]{babel}
 \usepackage[latin5]{inputenc}
 \usepackage{hyperref}
@@ -16,7 +16,7 @@
 %\date{\displaydate{date}}
 
 \begin{document}
-
+\selectlanguage{spanish}
 \begin{center}
 \Huge
 Búsqueda de estrellas variables extragalácticas usando algoritmos de Machine Learning
@@ -70,7 +70,7 @@ Por ejemplo, las primeras estrellas variables se registraron durante el siglo XV
 Adicionalmente, usando la relación periodo-luminosidad de una población de estrellas Cefeidas se puede medir su distancia a la tierra.
 Esto se usa de la mano con calibraciones basadas en paralaje estelar para calcular distancias a galaxias cercanas y es parte fundamental de la escala de distancias.
 Por lo anterior, todas las mediciones que impiquen distancias mayores a 10 Mpc dependen fuertemente del cálculo de distancias usando variables Cefeidas, en particular, el parámetro de Hubble.
-Así, se vuelve esencial el mejoramiento de la precisón en la escala de distancias.
+Así, se vuelve esencial el mejoramiento de la precisión en la escala de distancias.
 En este contexto, nace el \tqt{Araucaria Project}.
 
 El Proyecto Araucaria es una colaboración iniciada en el año 2000 entre astrónomos de instituciones chilenas, estadounidenses y europeas; con el fin de mejorar la precisión de la escala de distancias.
@@ -105,13 +105,23 @@ A continuación se presenta brevemente los conocimientos necesarios para el desar
 
 \subsection{Araucaria Project}
 
-El proyecto Araucaria nace en 2001 con el objetivo de mejorar la calibración de la escala de distancia en el universo local. Esto principalmente a través de estudiar y caracterizar los efectos de la edad y la metalicidad en la determinación de distancias usando poblaciones estelares \cite{2006MmSAI..77..239P}.
+El proyecto Araucaria nace en 2000 con el objetivo de mejorar la calibración de la escala de distancia en el universo local. Esto principalmente a través de estudiar y caracterizar los efectos de la edad y la metalicidad en la determinación de distancias usando poblaciones estelares \cite{2006MmSAI..77..239P}.
 
-El proyecto hace uso de los telescopios --
+El proyecto hace uso del telescopio de Varsovia de 1.3m en el Observatorio de Las Campanas (LCO) y el telescopio MPG/ESO en el Observatorio de la Silla.
+Ambos telescopios contando con algún instrumento de campo amplio.
+Para las galaxias seleccionadas, los datos vendran principalmente del telescopio MPG/ESO con el instrumento Wide Field Imager.
 
-TODO: hablar de la toma de datos, la cámara, las galaxias, las bandas observadas y el telescopio.
+Procedimentalmente, el proyecto hace fotometría durante largos periodos de tiempo a galaxias del Grupo Local y el Grupo Escultor.
+Las imágenes se toman principalmente en los filtros fotométricos V e I, pero también hay noches con imágenes en los filtros B y R.
+Para el cálculo de distancia el proyecto utiliza diferentes métodos como la relación periodo-luminosidad de las estrellas de tipo Cefeidas, la relación brillo superficial-color de las estrellas binarias, entre otros.
+Por último, las galaxias estudiadas fueron: LMC, SMC, Carina, Fornax, Sculptor, IC1613, M33, M81, NGC55, NGC247, NGC300, NGC3109, NGC6822, NGC7793, WLM.
+De esas, se usará las imágenes de NGC55, NGC247 y NGC7793.
+
+
+
 
 \subsection{Generación de curvas de luz}
+
 TODO: hablar del proceso de reducción de las imagenes, de la fotometría psf,  del crossmatch 
 
 \subsection{Clasificación usando Machine Learning}
@@ -130,7 +140,7 @@ Crear catálogos de estrellas variables sobre galaxias del proyecto Araucaria usa
 %Objetivos específicos del trabajo. Empiezan con un verbo en infinitivo.
 
 \begin{itemize}
-	\item Realizar fotometría PSF usando los datos públicos de alguna de las galaxias del proyecto Araucaria tales, como NGC 55, NGC 247 y NGC 7793, con el fin de generar series de tiempo de magnitud para su población estelar.
+	\item Realizar fotometría PSF usando los datos públicos de alguna de las galaxias del proyecto Araucaria tales, como NGC55, NGC247 y NGC7793, con el fin de generar series de tiempo de magnitud para su población estelar.
 	\item Definir un espacio de características significativas de las curvas de luz, y proyectar las curvas en ese espacio.
 		\item Diseñar y entrenar un clasificador de estrellas variables utilizando el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
 	\item Reencontrar las variables Cefeidas previamente reportadas para esas galaxias.
@@ -238,7 +248,7 @@ En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referenc
 
 
 
-
+\selectlanguage{polish}
 \bibliography{mybib}
 \bibliographystyle{plain}
 
@@ -250,6 +260,6 @@ En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referenc
 
 Dr. Alejandro Garcia Varela. \hfill \hspace*{0mm}\phantom{Firma: }Javier Alejandro Acevedo Barroso.
 
-Directo de trabajo de grado. \hspace{3.28cm} Estudiante 201422995
+Director. \hspace{6.70cm} Estudiante 201422995
 
 \end{document} 
