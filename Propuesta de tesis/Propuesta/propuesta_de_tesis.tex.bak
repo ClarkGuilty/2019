@@ -2,7 +2,7 @@
 
 \usepackage{graphicx}
 \usepackage{epstopdf}
-\usepackage[spanish]{babel}
+\usepackage[spanish,polish]{babel}
 %\usepackage[english]{babel}
 \usepackage[latin5]{inputenc}
 \usepackage{hyperref}
@@ -10,7 +10,8 @@
 \usepackage{braket}
 \usepackage{quotmark}
 \usepackage{datenumber}
-\usepackage{natbib}
+\usepackage{aas_macros}
+%\usepackage{natbib}
 %\newdate{date}{10}{05}{2013}
 %\date{\displaydate{date}}
 
@@ -37,6 +38,25 @@ Director: Alejandro Garcia Varela
 \today
 \end{center}
 
+\begin{abstract}
+La clasificación de estrellas de acuerdo a las variaciones de su brillo es una de las actividades astronómicas más importantes desde finales del siglo XIX.
+Esta ha llevado a la detección de estrellas binarias, al mejoramiento de la escala de distancias, y a fuertes avances en astrofísica estelar.
+Por lo anterior, existen numerosos proyectos recolectando datos, en cantidades cada vez más grandes, con el fin de encontrar y clasificar estrellas variables.
+Los métodos tradicionales de búsqueda de estas estrellas se vuelven ineficientes ante ese tamaño de datos. Entonces, es necesaria la exploración de diferentes técnicas para automatizar la búsqueda y tener una clasificación fiable las estrellas variables.
+
+En este proyecto se busca entrenar un clasificador de estrellas variables que reciba series de tiempo y devuelva candidatos a estrellas variables.
+Se procesarán datos públicos del proyecto Araucaria de la galaxia NGC 55, NGC 247 y NGC 7793  para obtener series de tiempo y utilizar el clasificador sobre ellas.
+Se reducirán observaciones en los filtros B y V para 25 a 30 épocas tomadas con el instrumento Wide Field Imager del telescopio MPG/ESO en La Silla.
+Se hará fotometría PSF y crossmatch de las observaciones utilizando la suite de software astronómico DAO de Peter Stetson, y se obtendrán series de tiempo.
+Posteriormente, se usará el clasificador ya entrenado sobre las series y se generará un catálogo de estrellas candidatas.
+Por último, se revisarán las candidatas y se reportarán las estrellas variables.
+El objetivo final del proyecto es generar catálogos de estrellas variables en cada galaxia.
+
+Como muestra de entrenamiento se utilizará las series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
+Para el clasificador se usarán algoritmos de vanguardia como: Random forest, Gradient boosted forest y diferentes arquitecturas de redes neuronales, entre otros.
+El código se escribirá principalmente en Python 3 haciendo uso de librerías libres como Numpy, Scikit-learn, Astropy, etc. 
+Dado el alto volumen de datos, se usará el Cluster de cómputo de alto rendimiento de la Facultad de Ciencias.
+\end{abstract}
 
 \normalsize
 \section{Introducción}
@@ -45,19 +65,35 @@ Director: Alejandro Garcia Varela
 
 La clasificación de estrellas de acuerdo a sus propiedades ópticas ha sido una de las tareas más útiles de la astronomía y astrofísica moderna.
 El proceso permite segregar estrellas y luego estudiar los mecanismos propios de cada categoría de forma independiente.
-Por ejemplo, las primeras estrellas variables se registraron durante el siglo XV, pero no fue sino hasta principios del siglo XX que se clasificó sus curvas de luz y se estudiaron las propiedades de las diferentes clases; en particular, esto llevó al descubrimiento de la relación periodo-luminosidad en las variables Cefeidas \citep{1908AnHar..60...87L} y la formulación del mecanismo $\kappa$.
+Por ejemplo, las primeras estrellas variables se registraron durante el siglo XV, pero no fue sino hasta principios del siglo XX que se clasificó sus curvas de luz y se estudiaron las propiedades de las diferentes clases; en particular, esto llevó al descubrimiento de la relación periodo-luminosidad en las variables Cefeidas \cite{1908AnHar..60...87L} y la formulación del mecanismo $\kappa$.
 
-Adicionalmente, usando la relación periodo-luminosidad de una población Cefeida se puede medir la distancia a la población. Esto se usa para calcular distancias a galaxias cercanas y es parte fundamental de la escala de distancias.
-Por lo anterior, todas las mediciones que utilicen distancias mayores a 10 Mpc dependen fuertemente del cálculo de distancias usando variables Cefeidas, en particular, el parámetro de Hubble.
+Adicionalmente, usando la relación periodo-luminosidad de una población de estrellas Cefeidas se puede medir su distancia a la tierra.
+Esto se usa de la mano con calibraciones basadas en paralaje estelar para calcular distancias a galaxias cercanas y es parte fundamental de la escala de distancias.
+Por lo anterior, todas las mediciones que impiquen distancias mayores a 10 Mpc dependen fuertemente del cálculo de distancias usando variables Cefeidas, en particular, el parámetro de Hubble.
 Así, se vuelve esencial el mejoramiento de la precisón en la escala de distancias.
 En este contexto, nace el \tqt{Araucaria Project}.
 
-%la detección de numerosas variables Cefeidas en todas las galaxias cercanas posibles. 
+El Proyecto Araucaria es una colaboración iniciada en el año 2000 entre astrónomos de instituciones chilenas, estadounidenses y europeas; con el fin de mejorar la precisión de la escala de distancias.
+El proyecto hizo seguimiento durante al menos un año y medio a diferentes galaxias cercanas con el fin de generar curvas de luz de sus poblaciones estelares, y usar las curvas para el cálculo de distancia.
+Para el cálculo final de la distania se usó diferentes métodos dependiendo de las poblaciones obtenidas; en particular, si se encontró una población de estrellas Cefeidas, se usó el método de relación periodo-luminosidad.
+Adicionalmente, un año después de cada toma de datos, estos se publican en el catálogo de ESO para uso de parte de la comunidad astronómica internacional.
+
+Junto al proyecto Araucaria, está el proyecto OGLE (Optical Gravitational Lensing Experiment) \cite{1992AcA....42..253U}. OGLE busca encontrar evidencia de materia oscura a partir de su efecto de microlente gravitacional sobre estrelals de fondo. Para ello, construyeron en 1997 el telescopio de 1.3-m de Varsovia en el observatorio \tqt{Las Campanas} en Chile \cite{1997AcA....47..319U}; y desde entonces han mantenido un monitoreo fotométrico constante.
+Entre los resultados del proyecto se encuentra un catálogos de estrellas variables con sus correspondientes curvas de luz.
+
+Paralelamente, en los años noventa resurge el Machine Learning (aprendizaje de máquinas) como principal línea de investigación dentro de la Inteligencia Artifical, lo que llevó a un rápido avance en algoritmos y técnicas.
+Sin embargo, los análisis de los proyectos mencionados anteriormente hacen uso de métodos más tradicionales de la astronomía para la búsqueda de estrellas variables, y no de los novedosos algoritmos de su época.
+Con todo lo anterior, se vuelve interesante implementar un clasificador de estrellas variables usando algoritmos de Machine learning, entrenar el clasificador usando el catálogo de estrellas variables de OGLE, y utilizar el clasificador para encontrar estrellas variables en los datos públicos del proyecto Araucaria.%utilizar los datos públicos del Proyecto Araucaria para generar curvas de luz, luego usar los datos de OGLE para entrenar un clasifica
+
+%las curvas de luz clasificadas de OGLE para entrenar un algoritmo capaz de segregar curvas de luz
+
+%generó curvas de luz para las poblaciones estelares; y calculó distancias a partir de las curvas de luz clasificadas.
+
+%Entre los grandes avances, se propone el método de Random Forest en 1995 \cite{598994}, y las redes neuronales recurrentes con Long Short Term Memory
 
 
-
-
-
+\subsection*{Estado del arte}
+TODO: aquí irían todas las citas a los papers del proyecto araucaria en las galaxias de interés, las citas al proyecto OGLE en sus catálogos de estrellas variables y proceso de clasificación, y también las citas a los papers de clasificación estelar con y sin machine learning.
 
 
 
@@ -65,10 +101,20 @@ En este contexto, nace el \tqt{Araucaria Project}.
 
 \section{Marco Teórico}
 
+A continuación se presenta brevemente los conocimientos necesarios para el desarrollo del proyecto.
 
+\subsection{Araucaria Project}
 
+El proyecto Araucaria nace en 2001 con el objetivo principal de determinar los efectos de la edad y la metalicidad en la determinación de distancias extragalácticas usando poblaciones estelares \cite{2006MmSAI..77..239P}
 
-TODO
+TODO: hablar de la toma de datos, la cámara, las galaxias, las bandas observadas y el telescopio.
+
+\subsection{Generación de curvas de luz}
+TODO: hablar del proceso de reducción de las imagenes, de la fotometría psf,  del crossmatch 
+
+\subsection{Clasificación usando Machine Learning}
+TODO: hablar de los algoritmos a usar: Random Forest, redes neuranales, redes LSTM.
+Hablar del espacio de features y estadistica robusta.
 
 \section{Objetivo general}
 
@@ -82,7 +128,7 @@ Crear catálogos de estrellas variables sobre galaxias del proyecto Araucaria usa
 %Objetivos específicos del trabajo. Empiezan con un verbo en infinitivo.
 
 \begin{itemize}
-	\item Realizar fotometría PSF usando los datos públicos de alguna de las galaxias del proyecto Araucaria tales, como NGC 300, NGC 247 y NGC 7793, con el fin de generar series de tiempo de magnitud para su población estelar.
+	\item Realizar fotometría PSF usando los datos públicos de alguna de las galaxias del proyecto Araucaria tales, como NGC 55, NGC 247 y NGC 7793, con el fin de generar series de tiempo de magnitud para su población estelar.
 	\item Definir un espacio de características significativas de las curvas de luz, y proyectar las curvas en ese espacio.
 		\item Diseñar y entrenar un clasificador de estrellas variables utilizando el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
 	\item Reencontrar las variables Cefeidas previamente reportadas para esas galaxias.
@@ -133,21 +179,21 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 
 
 \begin{table}[htb]
-	\begin{tabular}{|c|cccccccccccccccc| }
+	\begin{tabular}{|c|cccccccccccccc| }
 	\hline
-	Tareas $\backslash$ Periodo & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13   \\
+	Tareas $\backslash$ Periodo & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 &  \\
 	\hline
-	1 & X & X & X &  X &  X &  X & X  & X &  &   &   &   &      \\
-	2 & X & X & X & X  &   &   &   &  &  &   &   &   &      \\	
-	3 &  &  &  & X & X  & X  &  X &  &  &   &   &   &      \\
-	4 &  &  &  &   & X & X  & X  & X & X &   &   &   &      \\
-	5 & X & X & X & X & X  &  X & X  &  &  &   &   &   &      \\
-	6 & X & X &  & X  & X & X  & X  &  &  &   &   &   &      \\
-	7 &  &  & X &  X & X  & X  & X  & X & X & X  &   &   &      \\
-	8 &  &  &  &   &   &  X &  X & X & X &  X &   &   &      \\
-	9 &  &  &  &   &   &   &   & X & X & X  & X  & X  & X     \\
-	10 &  &  &  &   &   &   & X  & X &  &   &  X &  X &   X   \\ 
-	11 & X & X & X & X  & X  & X  &  X & X & X & X  & X  & X  &  X \\   \hline
+	1 & X & X & X &  X &  X &  X & X  & X &  &   &   &   &     & \\
+	2 & X & X & X & X  &   &   &   &  &  &   &   &   &     & \\	
+	3 &  &  &  & X & X  & X  &  X &  &  &   &   &   &      &\\
+	4 &  &  &  &   & X & X  & X  & X & X &   &   &   &      &\\
+	5 & X & X & X & X & X  &  X & X  &  &  &   &   &   &     & \\
+	6 & X & X &  & X  & X & X  & X  &  &  &   &   &   &      &\\
+	7 &  &  & X &  X & X  & X  & X  & X & X & X  &   &   &   &   \\
+	8 &  &  &  &   &   &  X &  X & X & X &  X &   &   &      &\\
+	9 &  &  &  &   &   &   &   & X & X & X  & X  & X  & X    & \\
+	10 &  &  &  &   &   &   & X  & X &  &   &  X &  X &   X  & \\ 
+	11 & X & X & X & X  & X  & X  &  X & X & X & X  & X  & X  &  X &\\   \hline
 	\end{tabular}
 \end{table}
 \vspace{1mm}
@@ -183,9 +229,8 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 
 
 \section{Consideraciones éticas}
-Todos los datos que se planea usar son públicos y se encuentran disponibles en la página de ESO.
+Todos los datos que se planea usar son públicos y se encuentran disponibles en el catálogo del Observatorio Europeo Austral (ESO, por sus siglas en inglés).
 Todo el software utilizado para el desarrollo del proyecto es software Libre.
-En caso de hacer uso de software propietario, se tendrá la respectiva licencia.
 No se modificará ninguna muestra de datos.
 En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referencia y citación en el documento final.
 
@@ -193,7 +238,7 @@ En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referenc
 
 
 \bibliography{mybib}
-\bibliographystyle{plainnat}
+\bibliographystyle{plain}
 
 
 \section*{ }
