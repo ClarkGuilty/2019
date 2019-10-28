@@ -30,7 +30,7 @@ Búsqueda de estrellas variables extragalácticas usando algoritmos de Machine Lea
 
 \vspace{2mm}
 \Large
-Director: Alejandro Garcia Varela
+Director: Alejandro García
 
 \normalsize
 \vspace{2mm}
@@ -38,7 +38,7 @@ Director: Alejandro Garcia Varela
 \today
 \end{center}
 
-\begin{abstract}
+\begin{abstract} %TODO actualizar resumen y texto con resumen.
 La clasificación de estrellas de acuerdo a las variaciones de su brillo es una de las actividades astronómicas más importantes desde finales del siglo XIX.
 Esta ha llevado a la detección de estrellas binarias, al mejoramiento de la escala de distancias, y a fuertes avances en astrofísica estelar.
 Por lo anterior, existen numerosos proyectos recolectando datos, en cantidades cada vez más grandes, con el fin de encontrar y clasificar estrellas variables.
@@ -94,7 +94,11 @@ Con todo lo anterior, se vuelve interesante implementar un clasificador de estre
 
 \subsection*{Estado del arte}
 Los estudios fotométricos de las galaxias de interés se pueden rastrear a finales de los años 30 para NGC7793 \cite{1938BHarO.907....6S}, a inicios de los sesenta para NGC 55 \cite{1961ApJ...133..405D, 1966AuJPh..19..111R}, y finales de los años setenta para NGC247 \cite{1978ApJ...224..710D, 1979ApJ...227..729D, 1980ApJ...239..783D}.
+<<<<<<< HEAD
+Desde entonces hasta los años noventa se caracterizó su composición química, distancia, perfil de luminosidad, perfil cinemático, metalicidad, regiones de formación estelar y hasta polvo intergaláctico \cite{1982ApJ...253L..73G, 1985ApJS...58..107C,1987ApJ...323...79P,  1990AJ....100..641C, 1995AAS...187.4809W, 1997IrAJ...24...45Z, 1998ApJ...496...39Z} %No aglomerar las referencias. También incluir leyes de extinsión de Cardelli - Schlegell ver NED-IPAC
+=======
 Desde entonces hasta los años noventa se caracterizó su composición, distancia, perfil lumínico, perfil cinemático, metalicidad, sus regiones de formación estelar y hasta polvo intergaláctico \cite{1982ApJ...253L..73G, 1985ApJS...58..107C,1987ApJ...323...79P,  1990AJ....100..641C, 1995AAS...187.4809W, 1997IrAJ...24...45Z, 1998ApJ...496...39Z} 
+>>>>>>> 615ced47bd69d20caee1d6b240acaf96e6a5f610
 
 %TODO preguntar si son muchas citas.
 TODO: aquí irían todas las citas a los papers del proyecto araucaria en las galaxias de interés, las citas al proyecto OGLE en sus catálogos de estrellas variables y proceso de clasificación, y también las citas a los papers de clasificación estelar con y sin machine learning.
@@ -107,20 +111,19 @@ TODO: aquí irían todas las citas a los papers del proyecto araucaria en las gala
 
 A continuación se presenta brevemente los conocimientos necesarios para el desarrollo del proyecto.
 
-\subsection{Araucaria Project}
+\subsection{El Proyecto Araucaria}
 
-El proyecto Araucaria nace en 2000 con el objetivo de mejorar la calibración de la escala de distancia en el universo local. Esto principalmente a través de estudiar y caracterizar los efectos de la edad y la metalicidad en la determinación de distancias usando poblaciones estelares \cite{2006MmSAI..77..239P}.
+Nace en el año 2000 con el objetivo de mejorar la calibración de la escala de distancia en el universo local, a través del 
+Esto principalmente a través de estudiar y caracterizar los efectos de la edad y la metalicidad en la determinación de distancias usando poblaciones estelares \cite{2006MmSAI..77..239P}.
 
-El proyecto hace uso del telescopio de Varsovia de 1.3m en el Observatorio de Las Campanas (LCO) y el telescopio MPG/ESO en el Observatorio de la Silla.
-Ambos telescopios contando con algún instrumento de campo amplio.
-Para las galaxias seleccionadas, los datos vendran principalmente del telescopio MPG/ESO con el instrumento Wide Field Imager.
+El proyecto hace uso del telescopio de Varsovia de 1.3 m en el Observatorio de Las Campanas (LCO) y el telescopio de 2.2 m MPG/ESO en el Observatorio de la Silla.
+Ambos telescopios cuentan cámaras de campo amplio.
 
-Procedimentalmente, el proyecto hace fotometría durante largos periodos de tiempo a galaxias del Grupo Local y el Grupo Escultor.
-Las imágenes se toman principalmente en los filtros fotométricos V e I, pero también hay noches con imágenes en los filtros B y R.
-Para el cálculo de distancia el proyecto utiliza diferentes métodos como la relación periodo-luminosidad de las estrellas de tipo Cefeidas, la relación brillo superficial-color de las estrellas binarias, entre otros.
-Por último, las galaxias estudiadas fueron: LMC, SMC, Carina, Fornax, Sculptor, IC1613, M33, M81, NGC55, NGC247, NGC300, NGC3109, NGC6822, NGC7793, WLM.
-De esas, se usará las imágenes de NGC55, NGC247 y NGC7793.
+Procedimentalmente, el proyecto observa durante largos periodos de tiempo a galaxias del Grupo Local y el Grupo del Escultor.
+Las imágenes se toman principalmente en los filtros V e I, pero también hay noches con imágenes en los filtros B y R.
+Para el cálculo de distancia el proyecto utiliza diferentes métodos como la relación periodo-luminosidad de las variables Cefeidas, tip of the red giant branch, red clump, y binarias eclipsantes.
 
+Por último, las galaxias que ha estudiado son: LMC, SMC, Carina, Fornax, Sculptor, IC1613, M33, M81, NGC55, NGC247, NGC300, NGC3109, NGC6822, NGC7793, WLM.
 
 
 
@@ -144,31 +147,36 @@ Crear catálogos de estrellas variables sobre galaxias del proyecto Araucaria usa
 %Objetivos específicos del trabajo. Empiezan con un verbo en infinitivo.
 
 \begin{itemize}
-	\item Realizar fotometría PSF usando los datos públicos de alguna de las galaxias del proyecto Araucaria tales, como NGC55, NGC247 y NGC7793, con el fin de generar series de tiempo de magnitud para su población estelar.
-	\item Definir un espacio de características significativas de las curvas de luz, y proyectar las curvas en ese espacio.
-		\item Diseñar y entrenar un clasificador de estrellas variables utilizando el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
-	\item Reencontrar las variables Cefeidas previamente reportadas para esas galaxias.
-	\item Generar un catálogo de estrellas candidatas a estrellas variables con los datos del proyecto Araucaria utilizando el clasificado.
-	\item Encontrar las estrellas de tipo Cefeida previamente detectadas en las galaxias de interés.
+	\item Realizar fotometría PSF usando los datos públicos de alguna de las galaxias del proyecto Araucaria NGC55, NGC247 y NGC7793, con el fin de generar series de tiempo.
+	\item Definir un espacio de características significativas de las curvas de luz, y proyectar las curvas en este espacio.
+	\item Diseñar y entrenar un clasificador de estrellas variables utilizando como muestra de entrenamiento el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment); y métodos como Random Forest, Support Vector Machine, y diferentes arquitecturas de redes neuronales.
+	\item A partir del clasificador, generar un catálogo de estrellas variables con los datos del Proyecto Araucaria.
+	\item Reencontrar las variables Cefeidas previamente reportadas para estas galaxias.
 	\item Generar un catálogo final de estrellas variables para la galaxia elegida y diagramas de magnitud-color y color-color.
-	\item Generar diagramas de magnitud-color y color-color para las estrellas variables de las galaxias, así como relación periodo-luminosidad de las variables Cefeidas.
+	\item Generar los diagramas magnitud-color y color-color para todas las estrellas detectadas en las galaxias, así como relación periodo-luminosidad de las variables Cefeidas.
 \end{itemize}
 
 \section{Metodología}
 
 %Exponer DETALLADAMENTE la metodología que se usará en la Monografía. 
-El proyecto es tiene una parte fuerte computacional.
+El proyecto tiene una parte fuerte computacional.
 Se requiere el uso del Cluster de cómputo de alto rendimiento tanto para la reducción de datos, como para entrenar el clasificador.
 A continuación se presentan los requerimientos computacionales del proyecto.
 
-Se descargará imagenes para una galaxia del proyecto Araucaria.
+Se descargaran imagenes para una galaxia del proyecto Araucaria.
 Se espera tener datos para al menos veintiocho noches.
-El proyecto toma cinco imágenes por noche por filtro en los filtros B, V, R e I.
+El proyecto toma imágenes en los filtros B, V, R e I.
 El total de las imágenes ciencia para una galaxia ocupa alrededor de 35 a 40 Gigabytes.
-Al incluir las imágenes para la corrección de Bias, Flat y Dark; se estima unos 50 Gigabytes.
+Al incluir las imágenes para la corrección de Bias y Flat, se estima unos 50 Gigabytes.
 Adicionalmente, durante la reducción se crean archivos temporales de tamaño considerable, por lo que se requiere espacio extra disponible.
-Por último, para entrenar el clasificador se utilizará los datos del proyecto OGLE, que pesan menos de 10 Gigabytes.
+Por último, para entrenar el clasificador se utilizaran los datos del proyecto OGLE, que pesan menos de 10 Gigabytes.
 En total, se estima un requisito total de almacenamiento de 120 Gigabytes.
+
+%TODO hablar de la reducción en IRAF y el proceso de crossmatch
+Una vez decidida la galaxia, se descargaran todas las observaciones del proyecto en los diferentes filtros.
+Posteriormente, se realizaran las calibraciones usando el software IRAF, en particular las tareas ESOWFI y MSCRED, pues fueron escritas particularmente para el tipo de datos a utilizar.
+
+
 
 Los algoritmos se escribirán en Python usando librerías de alta eficiencia y optimización como Pytorch, Scikit-learn, Numpy, entre otras. 
 El entrenamiento del clasificador se hará en paralelo usando multiples CPUs y cuando sea posible, multiples GPUs. 
@@ -177,10 +185,6 @@ Para el entrenamiento paralelo en GPUs se utilizará Nvidia CUDA.
 Los requisitos de memoria no son tan rígidos porque se puede entrenar el clasificador usando \tqt{batches} de datos en vez de la muestra completa; y la reducción de imágenes astronómicas está optimizada para usar poca memoria, pues los programas a usar fueron escritos cuando la memoria RAM disponible era ordenes de magnitud menor.
 Por lo tanto, los cuatro Gigabytes de memoria por CPU y GPU del Cluster es suficiente.
 
-
-Se descargará unas pocas noches de algunas galaxias del proyecto Araucaria con el fin de elegir la galaxia a trabajar.
-Una vez decidida la galaxia, se descargará todas las observaciones del proyecto en los diferentes filtos.
-Siguiente, se realizará las correcciones de  astronómico IRAF, en particular las tareas ESOWFI y MSCRED, pues fueron escritas particularmente para el tipo de datos a utilizar.
 
 
 %Monografía teórica o computacional: ¿Cómo se harán los cálculos teóricos? ¿Cómo se harán las simulaciones? ¿Qué requerimientos computacionales se necesitan? ¿Qué espacios físicos o virtuales se van a utilizar?
@@ -236,10 +240,10 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 %Nombres de por lo menos 3 profesores que conozcan del tema. Uno de ellos debe ser profesor de planta de la Universidad de los Andes.
 
 \begin{itemize}
-	\item Dra. Beatriz Eugenia Sabogal Martínez (Universidad de los Andes)
-	\item Dr. Ronnald Mennickent (Universidad de Concepción)
-	\item Dr. Grzegorz Pietrzynsky (Universidad de Concepción)	
-	\item Dr. Igor Soszy\'nski (Universidad de Varsovia)
+	\item Dra. Beatriz Sabogal (Universidad de los Andes)
+	\item Dr. Ronnald Mennickent (Universidad de Concepción, Chile)
+	\item Dr. Grzegorz Pietrzynsky (Instituto Copérnico, Polonia)	%TODO arreglar tildes polacas.
+	\item Dr. Igor Soszy\'nski (Universidad de Varsovia, Polonia)
 \end{itemize}
 
 
@@ -262,7 +266,7 @@ En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referenc
 \rule{5.3cm}{0.01cm} \hfill \rule{6.3cm}{0.01cm}
 
 
-Dr. Alejandro Garcia Varela. \hfill \hspace*{0mm}\phantom{Firma: }Javier Alejandro Acevedo Barroso.
+Dr. Alejandro García \hfill \hspace*{0mm}\phantom{Firma: }Javier Alejandro Acevedo Barroso.
 
 Director. \hspace{6.73cm} Estudiante 201422995
 
