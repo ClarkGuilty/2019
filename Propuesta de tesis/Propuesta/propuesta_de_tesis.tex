@@ -45,7 +45,7 @@ Por lo anterior, existen numerosos proyectos recolectando datos, en cantidades c
 Los métodos tradicionales de búsqueda de estas estrellas se vuelven ineficientes ante ese tamaño de datos. Entonces, es necesaria la exploración de diferentes técnicas para automatizar la búsqueda y tener una clasificación fiable las estrellas variables.
 
 En este proyecto se busca entrenar un clasificador de estrellas variables que reciba series de tiempo y devuelva candidatos a estrellas variables.
-Se procesarán datos públicos del proyecto Araucaria de la galaxia NGC 55, NGC 247 y NGC 7793  para obtener series de tiempo y utilizar el clasificador sobre ellas.
+Se procesarán datos públicos del proyecto Araucaria de la galaxia NGC 55, NGC247 y NGC7793  para obtener series de tiempo y utilizar el clasificador sobre ellas.
 Se reducirán observaciones en los filtros B y V para 25 a 30 épocas tomadas con el instrumento Wide Field Imager del telescopio MPG/ESO en La Silla.
 Se hará fotometría PSF y crossmatch de las observaciones utilizando la suite de software astronómico DAO de Peter Stetson, y se obtendrán series de tiempo.
 Posteriormente, se usará el clasificador ya entrenado sobre las series y se generará un catálogo de estrellas candidatas.
@@ -93,15 +93,23 @@ Con todo lo anterior, se vuelve interesante implementar un clasificador de estre
 
 
 \subsection*{Estado del arte}
-Los estudios fotométricos de las galaxias de interés se pueden rastrear a finales de los años 30 para NGC7793 \cite{1938BHarO.907....6S}, a inicios de los sesenta para NGC 55 \cite{1961ApJ...133..405D, 1966AuJPh..19..111R}, y finales de los años setenta para NGC247 \cite{1978ApJ...224..710D, 1979ApJ...227..729D, 1980ApJ...239..783D}.
-<<<<<<< HEAD
+Los estudios fotométricos de las galaxias de interés se pueden rastrear a finales de los años 30 para NGC7793 \cite{1938BHarO.907....6S}, a inicios de los sesenta para NGC55 \cite{1961ApJ...133..405D, 1966AuJPh..19..111R}, y finales de los años setenta para NGC247 \cite{1978ApJ...224..710D, 1979ApJ...227..729D, 1980ApJ...239..783D}.
 Desde entonces hasta los años noventa se caracterizó su composición química, distancia, perfil de luminosidad, perfil cinemático, metalicidad, regiones de formación estelar y hasta polvo intergaláctico \cite{1982ApJ...253L..73G, 1985ApJS...58..107C,1987ApJ...323...79P,  1990AJ....100..641C, 1995AAS...187.4809W, 1997IrAJ...24...45Z, 1998ApJ...496...39Z} %No aglomerar las referencias. También incluir leyes de extinsión de Cardelli - Schlegell ver NED-IPAC
-=======
-Desde entonces hasta los años noventa se caracterizó su composición, distancia, perfil lumínico, perfil cinemático, metalicidad, sus regiones de formación estelar y hasta polvo intergaláctico \cite{1982ApJ...253L..73G, 1985ApJS...58..107C,1987ApJ...323...79P,  1990AJ....100..641C, 1995AAS...187.4809W, 1997IrAJ...24...45Z, 1998ApJ...496...39Z} 
->>>>>>> 615ced47bd69d20caee1d6b240acaf96e6a5f610
 
-%TODO preguntar si son muchas citas.
-TODO: aquí irían todas las citas a los papers del proyecto araucaria en las galaxias de interés, las citas al proyecto OGLE en sus catálogos de estrellas variables y proceso de clasificación, y también las citas a los papers de clasificación estelar con y sin machine learning.
+
+Adicionalmente, el Proyecto Araucaria empieza a operar en el año 2000 y publica sus primeros resultados sobre las galaxias de interés durante la misma década.
+El Proyecto encontró variables Cefeidas en las tres galaxias y calculó su distancia usando la relación Periodo-Luminosidad \cite{2006AJ....132.2556P, 2008AJ....136.1770G,2010AJ....140.1475P}.
+Además, ha realizado estudios adicionales en infrarrojo cercano para confirmar las distancias \cite{2008ApJ...672..266G, 2009ApJ...700.1141G,2017ApJ...847...88Z}
+
+Por otro lado, el proyecto OGLE ha publicado catálogos de estrellas variables para las nubes de Magallanes \cite{2015AcA....65..233S,2015AcA....65..297S,2016AcA....66..131S, 2016AcA....66..421P}, el bulbo galáctico \cite{2014AcA....64..177S, 2016AcA....66..405S}, y otras regiones de la Vía Láctea \cite{2008AcA....58...69U, 2015AcA....65....1U}.
+Los catálogos se encuentran disponibles bajo el catálogo general \tqt{OGLE Collection of Variable Stars}\footnote{Disponible en \url{http://ogledb.astrouw.edu.pl/~ogle/OCVS/} .}.
+
+Sumado a esto, la detección de estrellas variables se hace tradicionalmente estudiando la tendencia de la curva desviación-magnitud de la población, con el fin de generar una lista más reducida de estrellas candidatas.
+Luego estudiar las curvas de luz y los periodogramas de tales candidatas \cite{alejandroThesis}.
+Sim embargo, en la última década se ha trabajado nuevas técnicas de clasificación haciendo uso de métodos de Machine Learning para sistematizar la búsqueda.
+
+
+TODO: aquí irían todas las citas a los papers del proyecto araucaria en las galaxias de interés, las citas al proyecto OGLE en sus catálogos de estrellas variables y proceso de clasificación, y también las citas a los papers de clasificación estelar con y sin Machine Learning.
 
 
 
@@ -122,8 +130,7 @@ Ambos telescopios cuentan cámaras de campo amplio.
 Procedimentalmente, el proyecto observa durante largos periodos de tiempo a galaxias del Grupo Local y el Grupo del Escultor.
 Las imágenes se toman principalmente en los filtros V e I, pero también hay noches con imágenes en los filtros B y R.
 Para el cálculo de distancia el proyecto utiliza diferentes métodos como la relación periodo-luminosidad de las variables Cefeidas, tip of the red giant branch, red clump, y binarias eclipsantes.
-
-Por último, las galaxias que ha estudiado son: LMC, SMC, Carina, Fornax, Sculptor, IC1613, M33, M81, NGC55, NGC247, NGC300, NGC3109, NGC6822, NGC7793, WLM.
+Por último, las galaxias estudiadas hasta ahora son: LMC, SMC, Carina, Fornax, Sculptor, IC1613, M33, M81, NGC55, NGC247, NGC300, NGC3109, NGC6822, NGC7793, WLM.
 
 
 
@@ -266,7 +273,7 @@ En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referenc
 \rule{5.3cm}{0.01cm} \hfill \rule{6.3cm}{0.01cm}
 
 
-Dr. Alejandro García \hfill \hspace*{0mm}\phantom{Firma: }Javier Alejandro Acevedo Barroso.
+Dr. Alejandro García \hfill \hspace*{0mm}\phantom{Firma: }Javier Alejandro Acevedo Barroso
 
 Director. \hspace{6.73cm} Estudiante 201422995
 
