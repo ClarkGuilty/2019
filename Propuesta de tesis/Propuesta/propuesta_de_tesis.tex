@@ -1,5 +1,8 @@
 \documentclass[12pt]{article}
 
+%pdflatex -interaction=nonstopmode %.tex|biber %|pdflatex -interaction=nonstopmode %.tex|pdflatex -synctex=1 -interaction=nonstopmode %.tex|evince %.pdf
+\usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=3]{biblatex}
+\addbibresource{mybib.bib}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage[polish,spanish]{babel}
@@ -9,12 +12,14 @@
 \usepackage[left=3cm,top=3cm,right=3cm,nohead,nofoot]{geometry}
 \usepackage{braket}
 \usepackage{quotmark}
+\usepackage{csquotes}
 \usepackage{datenumber}
 \usepackage{aas_macros}
 %\usepackage{natbib}
 %\newdate{date}{10}{05}{2013}
 %\date{\displaydate{date}}
 
+\DeclareLanguageMapping{spanish}{spanish-lat}
 \begin{document}
 \selectlanguage{spanish}
 \begin{center}
@@ -99,17 +104,22 @@ Desde entonces hasta los años noventa se caracterizó su composición química, dis
 
 Adicionalmente, el Proyecto Araucaria empieza a operar en el año 2000 y publica sus primeros resultados sobre las galaxias de interés durante la misma década.
 El Proyecto encontró variables Cefeidas en las tres galaxias y calculó su distancia usando la relación Periodo-Luminosidad \cite{2006AJ....132.2556P, 2008AJ....136.1770G,2010AJ....140.1475P}.
-Además, ha realizado estudios adicionales en infrarrojo cercano para confirmar las distancias \cite{2008ApJ...672..266G, 2009ApJ...700.1141G,2017ApJ...847...88Z}
+Además, ha realizado estudios adicionales en infrarrojo cercano para confirmar las distancias \cite{2008ApJ...672..266G, 2009ApJ...700.1141G,2017ApJ...847...88Z}.
 
 Por otro lado, el proyecto OGLE ha publicado catálogos de estrellas variables para las nubes de Magallanes \cite{2015AcA....65..233S,2015AcA....65..297S,2016AcA....66..131S, 2016AcA....66..421P}, el bulbo galáctico \cite{2014AcA....64..177S, 2016AcA....66..405S}, y otras regiones de la Vía Láctea \cite{2008AcA....58...69U, 2015AcA....65....1U}.
 Los catálogos se encuentran disponibles bajo el catálogo general \tqt{OGLE Collection of Variable Stars}\footnote{Disponible en \url{http://ogledb.astrouw.edu.pl/~ogle/OCVS/} .}.
 
-Sumado a esto, la detección de estrellas variables se hace tradicionalmente estudiando la tendencia de la curva desviación-magnitud de la población, con el fin de generar una lista más reducida de estrellas candidatas.
-Luego estudiar las curvas de luz y los periodogramas de tales candidatas \cite{alejandroThesis}.
-Sim embargo, en la última década se ha trabajado nuevas técnicas de clasificación haciendo uso de métodos de Machine Learning para sistematizar la búsqueda.
+Sumado a esto, la detección de estrellas variables se hace tradicionalmente estudiando la tendencia de la curva desviación-magnitud de la población para generar una lista más reducida de estrellas candidatas.
+Luego, estudiar las curvas de luz y los periodogramas de tales candidatas y clasificarlas \cite{alejandroThesis}.
+
+Sin embargo, desde los noventa y en particular en la última década se han trabajado nuevas técnicas de clasificación haciendo uso de métodos de Machine Learning para sistematizar la búsqueda y mejorar los resultados en la selección de estrellas candidatas  \cite{1995AAS...187.8805N,2006ApJ...650..497B}.
+La metodología usual durante principios de la década fue proyectar las curvas de luz en un espacio de características, y alimentar los algoritmos con las proyecciones.
+Las características deben ser seleccionadas de forma inteligente para conservar la información importante y descartar la superflua (como número de puntos en la curva de luz) \cite{2011ApJ...733...10R, 2017A&A...605A.123P, 2018MNRAS.475.2326P}.
+Los algoritmos utilizados fueron principalmente regresiones logísticas, Random Forest, k-vecinos más cercanos y Support Vector Machine.
+No obstante, se han desarrollado metodologías alternativas tales como: en vez de proyectar las curvas de luz en el espacio de parámetros, usar la curva completa y métodos basados en redes neuronales para la clasificación \cite{2018NatAs...2..151N}; o utilizar un esquema de meta-clasificación para evitar problemas de grano fino y mejorar el recall del clasificador, para luego clasificar los elementos de la meta-clase en las categorías finales \cite{2016ApJ...819...18P}.
 
 
-TODO: aquí irían todas las citas a los papers del proyecto araucaria en las galaxias de interés, las citas al proyecto OGLE en sus catálogos de estrellas variables y proceso de clasificación, y también las citas a los papers de clasificación estelar con y sin Machine Learning.
+%TODO: aquí irían todas las citas a los papers del proyecto araucaria en las galaxias de interés, las citas al proyecto OGLE en sus catálogos de estrellas variables y proceso de clasificación, y también las citas a los papers de clasificación estelar con y sin Machine Learning.
 
 
 
@@ -249,7 +259,7 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 \begin{itemize}
 	\item Dra. Beatriz Sabogal (Universidad de los Andes)
 	\item Dr. Ronnald Mennickent (Universidad de Concepción, Chile)
-	\item Dr. Grzegorz Pietrzynsky (Instituto Copérnico, Polonia)	%TODO arreglar tildes polacas.
+	\item Dr. Grzegorz Pietrzy{\'n}sky (Instituto Copérnico, Polonia)	%TODO arreglar tildes polacas.
 	\item Dr. Igor Soszy\'nski (Universidad de Varsovia, Polonia)
 \end{itemize}
 
@@ -263,10 +273,10 @@ En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referenc
 
 
 
-\selectlanguage{polish}
-\bibliography{mybib}
-\bibliographystyle{unsrt}
-
+%\selectlanguage{english}
+%\bibliography{mybib}
+%\bibliographystyle{unsrt}
+\printbibliography
 
 \section*{ }
 
@@ -275,6 +285,6 @@ En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referenc
 
 Dr. Alejandro García \hfill \hspace*{0mm}\phantom{Firma: }Javier Alejandro Acevedo Barroso
 
-Director. \hspace{6.73cm} Estudiante 201422995
+Director. \hspace{6.92cm} Estudiante 201422995
 
 \end{document} 
