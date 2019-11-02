@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 
 %pdflatex -interaction=nonstopmode %.tex|biber %|pdflatex -interaction=nonstopmode %.tex|pdflatex -synctex=1 -interaction=nonstopmode %.tex|evince %.pdf
-\usepackage[isbn=false,doi=false,url=false,eprint=false,backend=biber,style=numeric,sorting=none,maxbibnames=3]{biblatex}
+\usepackage[isbn=false,doi=false,url=false,eprint=false,style=numeric,sorting=none,maxbibnames=3]{biblatex}
 \addbibresource{mybib.bib}
 \usepackage{graphicx}
 \usepackage{epstopdf}
@@ -67,8 +67,8 @@ Por último, se revisarán las candidatas y se reportarán las estrellas variables.
 El objetivo final del proyecto es generar catálogos de estrellas variables en cada galaxia.
 
 Como muestra de entrenamiento se utilizará las series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
-Para el clasificador se usarán algoritmos de vanguardia como: Random forest, Gradient boosted forest y diferentes arquitecturas de redes neuronales, entre otros.
-El código se escribirá principalmente en Python 3 haciendo uso de librerías libres como Numpy, Scikit-learn, Astropy, etc. 
+Para el clasificador se usarán algoritmos de vanguardia como: Bosques Aleatorios, otros métodos de ensambles, y diferentes arquitecturas de redes neuronales.
+El código se escribirá principalmente en Python 3 haciendo uso de librerías libres como Numpy, Scikit-learn, Astropy, Pytorch, entre otras. 
 Dado el alto volumen de datos, se usará el Cluster de cómputo de alto rendimiento de la Facultad de Ciencias.
 \end{abstract}
 
@@ -127,15 +127,8 @@ Luego, estudiar las curvas de luz y los periodogramas de tales candidatas y clas
 Sin embargo, desde los noventa y en particular en la última década se han trabajado nuevas técnicas de clasificación haciendo uso de métodos de Machine Learning para sistematizar la búsqueda y mejorar los resultados en la selección de estrellas candidatas  \cite{1995AAS...187.8805N,2006ApJ...650..497B}.
 La metodología usual durante principios de la década fue proyectar las curvas de luz en un espacio de características, y alimentar los algoritmos con las proyecciones.
 Las características deben ser seleccionadas de forma inteligente para conservar la información importante y descartar la superflua (como número de puntos en la curva de luz) \cite{2011ApJ...733...10R, 2017A&A...605A.123P, 2018MNRAS.475.2326P}.
-Los algoritmos utilizados fueron principalmente regresiones logísticas, Random Forest, k-vecinos más cercanos y Support Vector Machine.
-No obstante, se han desarrollado metodologías alternativas tales como: en vez de proyectar las curvas de luz en el espacio de parámetros, usar la curva completa y métodos basados en redes neuronales para la clasificación \cite{2018NatAs...2..151N}; o utilizar un esquema de meta-clasificación para evitar problemas de grano fino y mejorar el recall del clasificador, para luego clasificar los elementos de la meta-clase en las categorías finales \cite{2016ApJ...819...18P}.
-
-
-%TODO: aquí irían todas las citas a los papers del proyecto araucaria en las galaxias de interés, las citas al proyecto OGLE en sus catálogos de estrellas variables y proceso de clasificación, y también las citas a los papers de clasificación estelar con y sin Machine Learning.
-
-
-
-
+Los algoritmos utilizados fueron principalmente regresiones logísticas, Bosques Aleatorios, K-vecinos más cercanos y Support Vector Machine.
+No obstante, se han desarrollado metodologías alternativas tales como: en vez de proyectar las curvas de luz en el espacio de parámetros, usar la curva completa y métodos basados en redes neuronales recurrentes para la clasificación \cite{2018NatAs...2..151N}; o utilizar un esquema de meta-clasificación para evitar problemas de grano fino y mejorar la recolección del clasificador, para luego clasificar los elementos de la meta-clase en las categorías finales \cite{2016ApJ...819...18P}.
 
 \section{Marco Teórico}
 
@@ -176,15 +169,45 @@ Machine Learning (ML) nació en los años cincuenta como una rama de la inteligenc
 Desde los años noventa tomó su propia dirección como ciencia propia gracias al mejoramiento de los algoritmos, el rápido crecimiento de los conjuntos de datos y el mejoramiento de los computadores.
 El uso de algoritmos y técnicas de ML en la astronomía comenzó tan temprano como 1990 \cite{1993VA.....36..141M} con redes neuronales artificiales.
 
-La metodología estándar para trabajar con curvas de luz es crear un espacio de parámetros en el cual proyectar las curvas y alimentar los algoritmos con los datos proyectados en tal parámetros.
-Esto debido a la irregularidad del muestreo en curvas de luz, pues las condiciones ambientales son muy erráticas.
-El espacio de parámetros puede estar compuesto por muchos parámetros con alta correlación entre sí \cite{2018MNRAS.475.2326P}, o por pocos parámetros de naturaleza robusta para dar cuenta del comportamiento global de los datos \cite{2017A&A...605A.123P}
+La metodología estándar para trabajar con curvas de luz es crear un espacio de características en el cual proyectar las curvas y alimentar los algoritmos con los datos proyectados en tal espacio.
+Esto está fuertemente motivado por la irregularidad del muestreo en curvas de luz, pues las condiciones de observación son muy erráticas.
+El espacio de parámetros puede estar compuesto por muchos parámetros con alta correlación entre sí \cite{2018MNRAS.475.2326P}, o por pocos parámetros con baja correlación y naturaleza robusta para dar cuenta del comportamiento global de los datos \cite{2017A&A...605A.123P}.
+A continuación, se presentan los métodos de ML más usados en variabilidad estelar:
+\begin{itemize}
+\item Bosques Aleatorios: la idea del algoritmo es convertir el espacio de características en un conjunto de combinaciones pequeñas.
+Por ejemplo, a partir de un espacio con 20 características, hacer 50 grupos con 4 características aleatorias cada uno.
+Luego, con las características de cada grupo se crea un árbol de clasificación, la clasificación final se elige con alguna regla de selección entre los árboles.
+Un árbol de clasificación es un clasificador particularmente bueno para separar regiones no lineales pero sufre de sobreajuste a los datos de entrenamiento, ahí brilla la principal ventaja de Bosques Aleatorios: debido a que cada árbol de regresión ajustará solo una pequeña parte de la información, la clasificación se mantiene regularizada y se evita el sobreajuste.
+Dada la alta dimensionalidad del espacio de parámetros, el sobreajuste es una de las principales problemáticas en la clasificación de nuevos datos, llevando a la alta eficacia del método en clasificación estelar.
+
+\item Métodos de ensambles: Bosques Aleatorios es un ejemplo particular de un tipo de métodos más generales llamados Métodos de ensambles.
+La idea principal es que al tener muchos clasificadores \tqt{simples}, combinarlos usando alguna regla de selección puede llevar a mejores resultados.
+Además de Bosques Aleatorios, existen métodos de \tqt{Boosted Gradient}.
+Estos métodos en vez de combinar los clasificadores con una simple regla de mayoría, asignan un peso a cada clasificador que se van actualizando a través de un proceso de optimización multivariable (\tqt{Gradient descent}).
+La ventaja de estos métodos es que, al igual que Bosques Aleatorios, evitan el sobreajuste usando clasificadores que individualmente tiene poco poder predictivo, e igualmente, se han probado con éxito en clasificación estelar \cite{2019arXiv190606628K}.
+Al combinar los clasificadores usando pesos y un algoritmo de optimización, se está mejorando el comportamiento del ensamble completo y maximizando el poder predictivo sin reducir mucho la varianza, de forma que el clasificador final es preciso y no pierde mucha eficacia al pasar al conjunto de prueba.
+
+
+
+\item Redes Neuronales: continuando con la idea de clasificadores de ensamble que además actualizan los pesos de cada clasificador interno.
+Una red neuronal es un clasificador de ensamble donde cada neurona corresponde a una regresión con una función no lineal y sus conexiones a los pesos de las regresiones.
+Las Redes Neuronales, incluso las más simples, tienen considerablemente mayor poder predictivo comparado con una única regresión de una función no lineal (como una regresión logística).
+Para evitar el problema del sobreajuste existen diferentes métodos de regularización como penalizar los pesos muy grandes (L1,L2), o apagar aleatoriamente conexiones de la red (dropout).
+Además, se han desarrollado arquitecturas de redes muy variadas para fines ajenos a la astronomía, como visión de computadores, predicción en series de tiempo, reconocimiento de imágenes, entre otras.
+Estas arquitecturas pueden terminar siendo particularmente útiles en problemas de clasificación estelar y vale la pena probarlas en datos de alto volumen y alta dimensionalidad.
+
+Las diferentes arquitecturas de redes neuronales cambian aspectos en la conección de las neuronas, las operaciones entre secciones de la red, las funciones de activación, y hasta el algoritmo de optimización.
+Las arquitecturas más interesantes para el problema de variabilidad estelar son las Redes Neuronales Convolucionales (CNN por sus siglas en inglés) y las Redes Neuronales Recurrentes (RNN).
+Las CNN se han probado con éxito en reconocimiento de imágenes unidimensionales.
+Para aplicarlas a curvas de luz, es necesario primero reconstruir los puntos faltantes en las curvas para que estas sean de tamaños regulares y poderlas interpretar como imágenes, este problema se puede abordar con Procesos Gaussianos.
+Por otro lado, la arquitectura de las redes RNN usualmente empieza con la transformación de la serie de tiempo en un vector de parámetros con dimensión fija.
+Luego, se alimenta ese vector a una red cuyo resultado vuelve a alimentarse a la red numerosas veces (de ahí la parte recurrente) y al final se optiene una clasificación similar al caso CNN.
+Este enfoque se ha probado con éxito en clasificación de curvas de luz de estrellas variables \cite{2018NatAs...2..151N}
+\end{itemize}
 
 
 
 
-TODO: hablar brevemente de los algoritmos a usar: Random Forest, redes neuronales, redes LSTM.
-Hablar del espacio de features y estadistica robusta.
 
 \section{Objetivo general}
 
@@ -200,7 +223,7 @@ Crear catálogos de estrellas variables para las galaxias NGC55, NGC247 y NGC7793
 \begin{itemize}
 	\item Realizar fotometría PSF usando los datos públicos de las galaxias del proyecto Araucaria NGC55, NGC247 y NGC7793, con el fin de generar series de tiempo.
 	\item Definir un espacio de características significativas de las curvas de luz, y proyectar las curvas en este espacio.
-	\item Diseñar y entrenar un clasificador de estrellas variables utilizando como muestra de entrenamiento el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment); y métodos como Random Forest, Support Vector Machine, y diferentes arquitecturas de redes neuronales.
+	\item Diseñar y entrenar un clasificador de estrellas variables utilizando como muestra de entrenamiento el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment); y métodos como Random Forest, métodos de ensambles, y diferentes arquitecturas de redes neuronales.
 	\item A partir del clasificador, generar un catálogo de estrellas variables con los datos del Proyecto Araucaria.
 	\item Reencontrar las variables Cefeidas previamente reportadas para estas galaxias.
 	\item Generar un catálogo final de estrellas variables para las tres galaxias.
