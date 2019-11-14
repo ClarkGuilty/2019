@@ -56,18 +56,20 @@ Director: Alejandro García
 La clasificación de estrellas de acuerdo a las variaciones de su brillo es una de las actividades astronómicas más importantes desde finales del siglo XIX.
 Esta ha llevado a la detección de estrellas binarias, al mejoramiento de la escala de distancias, y a fuertes avances en astrofísica estelar.
 Por lo anterior, existen numerosos proyectos recolectando datos, en cantidades cada vez más grandes, con el fin de encontrar y clasificar estrellas variables.
-Los métodos tradicionales de búsqueda de estas estrellas se vuelven ineficientes ante ese tamaño de datos. Entonces, es necesaria la exploración de diferentes técnicas para automatizar la búsqueda y tener una clasificación fiable las estrellas variables.
+Los métodos tradicionales de búsqueda de estas estrellas se vuelven ineficientes ante ese tamaño de datos.
+Entonces, es necesaria la exploración de diferentes técnicas para automatizar la búsqueda y tener una clasificación fiable de las estrellas variables.
 
 En este proyecto se busca entrenar un clasificador de estrellas variables que reciba series de tiempo y devuelva candidatos a estrellas variables.
-Se procesarán datos públicos del proyecto Araucaria de la galaxia NGC 55, NGC247 y NGC7793  para obtener series de tiempo y utilizar el clasificador sobre ellas.
+Se procesarán datos públicos del proyecto Araucaria de la galaxia NGC55, NGC247 y NGC7793  para obtener series de tiempo y utilizar el clasificador sobre ellas.
 Se reducirán observaciones en los filtros B y V para 25 a 30 épocas tomadas con el instrumento Wide Field Imager del telescopio MPG/ESO en La Silla.
-Se hará fotometría PSF y crossmatch de las observaciones utilizando la suite de software astronómico DAO de Peter Stetson, y se obtendrán series de tiempo.
-Posteriormente, se usará el clasificador ya entrenado sobre las series y se generará un catálogo de estrellas candidatas.
+Para ello se usará la suite astronómica IRAF y las librerías MSCRED y ESOWFI.
+Se hará fotometría PSF y crossmatch de las observaciones utilizando la suite DAO de Peter Stetson, y se obtendrán series de tiempo.
+Posteriormente, se usará el clasificador y se generará un catálogo de estrellas candidatas.
 Por último, se revisarán las candidatas y se reportarán las estrellas variables.
-El objetivo final del proyecto es generar catálogos de estrellas variables en cada galaxia.
+El objetivo final del proyecto es generar catálogos de estrellas variables para cada galaxia.
 
 Como muestra de entrenamiento se utilizará las series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment).
-Para el clasificador se usarán algoritmos de vanguardia como: Bosques Aleatorios, otros métodos de ensambles, y diferentes arquitecturas de redes neuronales.
+Para el clasificador se usarán algoritmos de vanguardia como: Bosques Aleatorios, Gradient Boosted Methods, y diferentes arquitecturas de redes neuronales.
 El código se escribirá principalmente en Python 3 haciendo uso de librerías libres como Numpy, Scikit-learn, Astropy, Pytorch, entre otras. 
 Dado el alto volumen de datos, se usará el Cluster de cómputo de alto rendimiento de la Facultad de Ciencias.
 \end{abstract}
@@ -95,12 +97,13 @@ El proyecto hizo seguimiento durante al menos un año y medio a diferentes galaxi
 Para el cálculo final de la distancia se usó diferentes métodos dependiendo de las poblaciones obtenidas; en particular, si se encontró una población de estrellas Cefeidas, se usó el método de relación periodo-luminosidad.
 Adicionalmente, un año después de cada toma de datos, estos se publican en el catálogo de ESO para uso de parte de la comunidad astronómica internacional.
 
-Junto al proyecto Araucaria, está el proyecto OGLE (Optical Gravitational Lensing Experiment) \cite{1992AcA....42..253U}. OGLE busca encontrar evidencia de materia oscura a partir de su efecto de microlente gravitacional sobre estrelals de fondo. Para ello, construyeron en 1997 el telescopio de 1.3-m de Varsovia en el observatorio \tqt{Las Campanas} en Chile \cite{1997AcA....47..319U}; y desde entonces han mantenido un monitoreo fotométrico constante.
+Junto al proyecto Araucaria, está el proyecto OGLE (Optical Gravitational Lensing Experiment) \cite{1992AcA....42..253U}. OGLE busca encontrar evidencia de materia oscura a partir de su efecto de microlente gravitacional sobre estrelals de fondo.
+Para ello, construyeron en 1997 el telescopio de 1.3 m de Varsovia en el observatorio \tqt{Las Campanas} en Chile \cite{1997AcA....47..319U}; y desde entonces han mantenido un monitoreo fotométrico constante.
 Entre los resultados del proyecto se encuentra un catálogos de estrellas variables con sus correspondientes curvas de luz.
 
 Paralelamente, en los años noventa resurge el Machine Learning (aprendizaje de máquinas) como principal línea de investigación dentro de la Inteligencia Artificial, lo que llevó a un rápido avance en algoritmos y técnicas.
 Sin embargo, los análisis de los proyectos mencionados anteriormente hacen uso de métodos más tradicionales de la astronomía para la búsqueda de estrellas variables, y no de los novedosos algoritmos de su época.
-Con todo lo anterior, se vuelve interesante implementar un clasificador de estrellas variables usando algoritmos de Machine learning, entrenar el clasificador usando el catálogo de estrellas variables de OGLE, y utilizar el clasificador para encontrar estrellas variables en los datos públicos del proyecto Araucaria.%utilizar los datos públicos del Proyecto Araucaria para generar curvas de luz, luego usar los datos de OGLE para entrenar un clasifica
+Con todo lo anterior, se vuelve interesante implementar un clasificador de estrellas variables usando algoritmos de Machine Learning, entrenar el clasificador usando el catálogo de estrellas variables de OGLE, y utilizar el clasificador para encontrar estrellas variables en los datos públicos del proyecto Araucaria.%utilizar los datos públicos del Proyecto Araucaria para generar curvas de luz, luego usar los datos de OGLE para entrenar un clasifica
 
 %las curvas de luz clasificadas de OGLE para entrenar un algoritmo capaz de segregar curvas de luz
 
@@ -110,10 +113,10 @@ Con todo lo anterior, se vuelve interesante implementar un clasificador de estre
 
 
 \subsection*{Estado del arte}
-Los estudios fotométricos de las galaxias de interés se pueden rastrear a finales de los años 30 para NGC7793 \cite{1938BHarO.907....6S}, a inicios de los sesenta para NGC55 \cite{1961ApJ...133..405D, 1966AuJPh..19..111R}, y finales de los años setenta para NGC247 \cite{1978ApJ...224..710D, 1979ApJ...227..729D, 1980ApJ...239..783D}.
-Desde entonces hasta los años noventa se caracterizó su composición química, distancia, perfil de luminosidad, perfil cinemático, metalicidad, regiones de formación estelar y hasta polvo intergaláctico \cite{1982ApJ...253L..73G, 1985ApJS...58..107C,1987ApJ...323...79P,  1990AJ....100..641C, 1995AAS...187.4809W, 1997IrAJ...24...45Z, 1998ApJ...496...39Z} %No aglomerar las referencias. También incluir leyes de extinsión de Cardelli - Schlegell ver NED-IPAC
+Los estudios fotométricos de las galaxias de interés se pueden rastrear a finales de los años treinta para NGC7793 \cite{1938BHarO.907....6S}, a inicios de los sesenta para NGC55 \cite{1961ApJ...133..405D, 1966AuJPh..19..111R}, y finales de los años setenta para NGC247 \cite{1978ApJ...224..710D, 1979ApJ...227..729D, 1980ApJ...239..783D}.
+Desde entonces hasta los años noventa se caracterizó su perfil de luminosidad \cite{1982ApJ...253L..73G,1985ApJS...58..107C}, composición química, distancia, metalicidad, regiones de formación estelar \cite{1987ApJ...323...79P, 1998ApJ...496...39Z} y hasta perfil de masa \cite{1990AJ....100..641C} y polvo intergaláctico \cite{1995AAS...187.4809W, 1997IrAJ...24...45Z}. %También incluir leyes de extinsión de Cardelli - Schlegell ver NED-IPAC
 
-
+%   
 El Proyecto Araucaria empieza a operar en el año 2000 y publica sus primeros resultados sobre las galaxias de interés durante la misma década.
 El Proyecto encontró variables Cefeidas en las tres galaxias y calculó su distancia usando la relación Periodo-Luminosidad \cite{2006AJ....132.2556P, 2008AJ....136.1770G,2010AJ....140.1475P}.
 Además, ha realizado seguimientos en infrarrojo para obtener mediciones de distancia con precisión del 1$\%$ \cite{2008ApJ...672..266G, 2009ApJ...700.1141G,2017ApJ...847...88Z}.
@@ -126,8 +129,8 @@ Luego, estudiar las curvas de luz y los periodogramas de tales candidatas y clas
 
 Sin embargo, desde los noventa y en particular en la última década se han trabajado nuevas técnicas de clasificación haciendo uso de métodos de Machine Learning para sistematizar la búsqueda y mejorar los resultados en la selección de estrellas candidatas  \cite{1995AAS...187.8805N,2006ApJ...650..497B}.
 La metodología usual durante principios de la década fue proyectar las curvas de luz en un espacio de características, y alimentar los algoritmos con las proyecciones.
-Las características deben ser seleccionadas de forma inteligente para conservar la información importante y descartar la superflua (como número de puntos en la curva de luz) \cite{2011ApJ...733...10R, 2017A&A...605A.123P, 2018MNRAS.475.2326P}.
-Los algoritmos utilizados fueron principalmente regresiones logísticas, Bosques Aleatorios, K-vecinos más cercanos y Support Vector Machine.
+Las características deben ser seleccionadas de forma inteligente para conservar la información importante y descartar la superflua (como número de puntos en la curva de luz) \cite{2011ApJ...733...10R, 2018MNRAS.475.2326P, 2017A&A...605A.123P,}.
+Los algoritmos utilizados fueron principalmente regresiones logísticas, Bosques Aleatorios, K-vecinos más cercanos y máquinas de soporte vectorial.
 No obstante, se han desarrollado metodologías alternativas tales como: en vez de proyectar las curvas de luz en el espacio de parámetros, usar la curva completa y métodos basados en redes neuronales recurrentes para la clasificación \cite{2018NatAs...2..151N}; o utilizar un esquema de meta-clasificación para evitar problemas de grano fino y mejorar la recolección del clasificador, para luego clasificar los elementos de la meta-clase en las categorías finales \cite{2016ApJ...819...18P}.
 
 \section{Marco Teórico}
@@ -136,14 +139,15 @@ A continuación se presenta brevemente los conocimientos necesarios para el desar
 
 \subsection{El Proyecto Araucaria}
 
-Nace en el año 2000 con el objetivo de mejorar la calibración de la escala de distancia en el universo local, a través del 
+Nace en el año 2000 con el objetivo de mejorar la calibración de la escala de distancia en el universo local.
 Esto principalmente a través de estudiar y caracterizar los efectos de la edad y la metalicidad en la determinación de distancias usando poblaciones estelares \cite{2006MmSAI..77..239P}.
 
 El proyecto hace uso del telescopio de Varsovia de 1.3 m en el Observatorio de Las Campanas (LCO) y el telescopio de 2.2 m MPG/ESO en el Observatorio de la Silla.
 Ambos telescopios cuentan cámaras de campo amplio.
 
-Procedimentalmente, el proyecto observa durante largos periodos de tiempo a galaxias del Grupo Local y el Grupo del Escultor.
+Procedimentalmente, el proyecto observa durante largos periodos de tiempo (al menos meses) a galaxias del Grupo Local y el Grupo del Escultor.
 Las imágenes se toman principalmente en los filtros V e I, pero también hay noches con imágenes en los filtros B y R.
+Luego, generan curvas de luz de las estrellas resueltas y las clasifican.
 Para el cálculo de distancia el proyecto utiliza diferentes métodos como la relación periodo-luminosidad de las variables Cefeidas, tip of the red giant branch, red clump, y binarias eclipsantes.
 Por último, las galaxias estudiadas hasta ahora son: LMC, SMC, Carina, Fornax, Sculptor, IC1613, M33, M81, NGC55, NGC247, NGC300, NGC3109, NGC6822, NGC7793, WLM.
 
@@ -151,8 +155,8 @@ Por último, las galaxias estudiadas hasta ahora son: LMC, SMC, Carina, Fornax, S
 
 \subsection{Generación de curvas de luz}
 Las imágenes a utilizar fueron tomadas con el instrumento Wide Field Imager (WFI) montado en el telescopio MPG/ESO de 2.2 m.
-La cámara es un mosaico de 4x2 CCDs cada una con una resolución de 2k por 4k.
-Debido al espacio entre chips, se tomó cinco imágenes seguidas por observación en cada filtro cambiando un poco la posición del telescopio, de forma que se puede llenar el espacio entre las CCDs.
+La cámara es un mosaico de 4x2 chips CCDs, cada uno con una resolución de 2k por 4k.
+Debido al espacio entre chips, se tomó cinco imágenes seguidas por observación en cada filtro cambiando un el apuntamiento del telescopio, de forma que se puede llenar el espacio entre los chips.
 Este proceso se conoce como \tqt{dithering}.
 Para juntar las cinco imágenes de cada noche y realizar la calibración de Flat y Bias se puede utilizar los paquetes de IRAF: ESOWFI y MSCRED, diseñados específicamente para procesar imágenes de campo amplio como las del instrumento WFI.
 
@@ -166,11 +170,11 @@ Por lo tanto, es esencial obtener el mayor número de estrellas correctamente aso
 
 \subsection{Clasificación usando Machine Learning}
 Machine Learning (ML) nació en los años cincuenta como una rama de la inteligencia artificial profundamente relacionada con la estadística y se refiere a la creación de modelos utilizables por una máquina para predicción o clasificación a partir de un conjunto de datos.
-Desde los años noventa tomó su propia dirección como ciencia propia gracias al mejoramiento de los algoritmos, el rápido crecimiento de los conjuntos de datos y el mejoramiento de los computadores.
+Desde los años noventa tomó su propia dirección como ciencia propia gracias al mejoramiento de los algoritmos, el rápido crecimiento de los conjuntos de datos y el la mejora en los computadores.
 El uso de algoritmos y técnicas de ML en la astronomía comenzó tan temprano como 1990 \cite{1993VA.....36..141M} con redes neuronales artificiales.
 
 La metodología estándar para trabajar con curvas de luz es crear un espacio de características en el cual proyectar las curvas y alimentar los algoritmos con los datos proyectados en tal espacio.
-Esto está fuertemente motivado por la irregularidad del muestreo en curvas de luz, pues las condiciones de observación son muy erráticas.
+Es fuertemente motivado por la irregularidad del muestreo en curvas de luz, pues las condiciones de observación son muy erráticas.
 El espacio de parámetros puede estar compuesto por muchos parámetros con alta correlación entre sí \cite{2018MNRAS.475.2326P}, o por pocos parámetros con baja correlación y naturaleza robusta para dar cuenta del comportamiento global de los datos \cite{2017A&A...605A.123P}.
 A continuación, se presentan los métodos de ML más usados en variabilidad estelar:
 \begin{itemize}
@@ -180,11 +184,11 @@ Luego, con las características de cada grupo se crea un árbol de clasificación, 
 Un árbol de clasificación es un clasificador particularmente bueno para separar regiones no lineales pero sufre de sobreajuste a los datos de entrenamiento, ahí brilla la principal ventaja de Bosques Aleatorios: debido a que cada árbol de regresión ajustará solo una pequeña parte de la información, la clasificación se mantiene regularizada y se evita el sobreajuste.
 Dada la alta dimensionalidad del espacio de parámetros, el sobreajuste es una de las principales problemáticas en la clasificación de nuevos datos, llevando a la alta eficacia del método en clasificación estelar.
 
-\item Métodos de ensambles: Bosques Aleatorios es un ejemplo particular de un tipo de métodos más generales llamados Métodos de ensambles.
+\item Métodos de ensambles: Bosques Aleatorios es un ejemplo particular de un tipo de métodos más generales conocidos como Métodos de ensambles.
 La idea principal es que al tener muchos clasificadores \tqt{simples}, combinarlos usando alguna regla de selección puede llevar a mejores resultados.
 Además de Bosques Aleatorios, existen métodos de \tqt{Boosted Gradient}.
 Estos métodos en vez de combinar los clasificadores con una simple regla de mayoría, asignan un peso a cada clasificador que se van actualizando a través de un proceso de optimización multivariable (\tqt{Gradient descent}).
-La ventaja de estos métodos es que, al igual que Bosques Aleatorios, evitan el sobreajuste usando clasificadores que individualmente tiene poco poder predictivo, e igualmente, se han probado con éxito en clasificación estelar \cite{2019arXiv190606628K}.
+La ventaja de estos métodos es que, al igual que Bosques Aleatorios, evitan el sobreajuste usando clasificadores que individualmente tiene poco poder predictivo; y se han probado con éxito en clasificación estelar \cite{2019arXiv190606628K}.
 Al combinar los clasificadores usando pesos y un algoritmo de optimización, se está mejorando el comportamiento del ensamble completo y maximizando el poder predictivo sin reducir mucho la varianza, de forma que el clasificador final es preciso y no pierde mucha eficacia al pasar al conjunto de prueba.
 
 
@@ -193,16 +197,16 @@ Al combinar los clasificadores usando pesos y un algoritmo de optimización, se e
 Una red neuronal es un clasificador de ensamble donde cada neurona corresponde a una regresión con una función no lineal y sus conexiones a los pesos de las regresiones.
 Las Redes Neuronales, incluso las más simples, tienen considerablemente mayor poder predictivo comparado con una única regresión de una función no lineal (como una regresión logística).
 Para evitar el problema del sobreajuste existen diferentes métodos de regularización como penalizar los pesos muy grandes (L1,L2), o apagar aleatoriamente conexiones de la red (dropout).
-Además, se han desarrollado arquitecturas de redes muy variadas para fines ajenos a la astronomía, como visión de computadores, predicción en series de tiempo, reconocimiento de imágenes, entre otras.
+Además, se han desarrollado arquitecturas de redes muy variadas para fines ajenos a la astronomía, como visión de computadores, predicción en series de tiempo, clasificación de imágenes, entre otras.
 Estas arquitecturas pueden terminar siendo particularmente útiles en problemas de clasificación estelar y vale la pena probarlas en datos de alto volumen y alta dimensionalidad.
 
-Las diferentes arquitecturas de redes neuronales cambian aspectos en la conección de las neuronas, las operaciones entre secciones de la red, las funciones de activación, y hasta el algoritmo de optimización.
-Las arquitecturas más interesantes para el problema de variabilidad estelar son las Redes Neuronales Convolucionales (CNN por sus siglas en inglés) y las Redes Neuronales Recurrentes (RNN).
-Las CNN se han probado con éxito en reconocimiento de imágenes unidimensionales.
-Para aplicarlas a curvas de luz, es necesario primero reconstruir los puntos faltantes en las curvas para que estas sean de tamaños regulares y poderlas interpretar como imágenes, este problema se puede abordar con Procesos Gaussianos.
+Las diferentes arquitecturas de redes neuronales cambian aspectos en la conexión de las neuronas, las operaciones entre secciones de la red, las funciones de activación, y hasta el algoritmo de optimización.
+Algunas de las arquitecturas más interesantes para el problema de variabilidad estelar son las Redes Neuronales Convolucionales (CNN por sus siglas en inglés) y las Redes Neuronales Recurrentes (RNN).
+Las CNN se han probado con éxito en reconocimiento de imágenes.
+Para aplicarlas a curvas de luz, es necesario primero reconstruir los puntos faltantes en las curvas para que estas sean de tamaños regulares y poder interpretarlas como imágenes, este problema se puede abordar con Procesos Gaussianos.
 Por otro lado, la arquitectura de las redes RNN usualmente empieza con la transformación de la serie de tiempo en un vector de parámetros con dimensión fija.
 Luego, se alimenta ese vector a una red cuyo resultado vuelve a alimentarse a la red numerosas veces (de ahí la parte recurrente) y al final se optiene una clasificación similar al caso CNN.
-Este enfoque se ha probado con éxito en clasificación de curvas de luz de estrellas variables \cite{2018NatAs...2..151N}
+Este enfoque se ha probado con éxito en clasificación de curvas de luz de estrellas variables \cite{2018NatAs...2..151N}.
 \end{itemize}
 
 
@@ -221,7 +225,7 @@ Crear catálogos de estrellas variables para las galaxias NGC55, NGC247 y NGC7793
 %Objetivos específicos del trabajo. Empiezan con un verbo en infinitivo.
 
 \begin{itemize}
-	\item Realizar fotometría PSF usando los datos públicos de las galaxias del proyecto Araucaria NGC55, NGC247 y NGC7793, con el fin de generar series de tiempo.
+	\item Realizar fotometría PSF usando los datos públicos de las galaxias del proyecto Araucaria NGC55, NGC247 y NGC7793, y generar series de tiempo.
 	\item Definir un espacio de características significativas de las curvas de luz, y proyectar las curvas en este espacio.
 	\item Diseñar y entrenar un clasificador de estrellas variables utilizando como muestra de entrenamiento el catálogo de series de tiempo del proyecto OGLE (Optical Gravitational Lensing Experiment); y métodos como Random Forest, métodos de ensambles, y diferentes arquitecturas de redes neuronales.
 	\item A partir del clasificador, generar un catálogo de estrellas variables con los datos del Proyecto Araucaria.
@@ -234,8 +238,8 @@ Crear catálogos de estrellas variables para las galaxias NGC55, NGC247 y NGC7793
 
 %Exponer DETALLADAMENTE la metodología que se usará en la Monografía. 
 El proyecto es principalmente computacional.
-Se requiere el uso del Cluster de cómputo de alto rendimiento tanto para la reducción de datos, como para entrenar el clasificador.
-A continuación se presentan los requerimientos del proyecto.
+Se requiere el uso del Cluster de cómputo de alto rendimiento tanto para entrenar el clasificador, como para utilizarlo sobre las curvas de luz generadas.
+A continuación se presentan los requerimientos técnicos del proyecto.
 
 El principal costo computacional viene del almacenamiento de los datos a utilizar.
 Se espera tener datos para al menos veintiocho noches y tres galaxias.
@@ -243,20 +247,21 @@ El proyecto toma imágenes en los filtros B, V, R e I.
 El total de las imágenes ciencia para una galaxia ocupa alrededor de 40 Gigabytes.
 Al incluir las imágenes para la corrección de Bias y Flat, se estima unos 70 Gigabytes.
 Adicionalmente, durante la reducción se crean archivos temporales de tamaño considerable, por lo que se requiere espacio extra disponible.
-Por último, para entrenar el clasificador se utilizaran los datos del proyecto OGLE, que pesan menos de 10 Gigabytes.
-En total, se estima un requisito total de almacenamiento de 400 Gigabytes.
-
+Por último, para entrenar el clasificador se utilizaran los datos del proyecto OGLE, que pesan alrededor de 10 Gigabytes.
+En total, se estima un requisito total de almacenamiento de 600 Gigabytes.
 
 Una vez decidida la galaxia, se descargaran todas las observaciones del Proyecto en los diferentes filtros.
 Posteriormente, se realizaran las calibraciones usando el software astronómico IRAF \cite{Tody86theiraf}, en particular las tareas ESOWFI y MSCRED, pues fueron escritas y optimizadas para este tipo de datos.
 El proceso de crossmatch se hará con los programas DAOMATCH y DAOMASTER de Peter Stetson.
 Adicionalmente, se explorará la posibilidad de usar STILTS \cite{2006ASPC..351..666T} y se compará resultados.
+Para esta parte su utilizará un computador del Departamento de Física conectado a un disco virtual de 1 Terabyte.
 
 Los algoritmos se escribirán en Python usando librerías de alta eficiencia y optimización como Pytorch, Scikit-learn, Numpy, entre otras. 
 El entrenamiento del clasificador se hará en paralelo usando multiples CPUs y cuando sea posible, multiples GPUs. 
 Para el entrenamiento paralelo en GPUs se utilizará Nvidia CUDA.
+Esta parte se hará usando el Cluster HPC de la Facultad de Ciencias.
 
-Los requisitos de memoria no son tan rígidos porque se puede entrenar el clasificador usando \tqt{batches} de datos en vez de la muestra completa; y la reducción de imágenes astronómicas está optimizada para usar poca memoria, pues los programas a usar fueron escritos cuando la memoria RAM disponible era ordenes de magnitud menor.
+Los requisitos de memoria no son tan rígidos como los de almacenamiento porque se puede entrenar el clasificador usando \tqt{batches} de datos en vez de la muestra completa; y la reducción de imágenes astronómicas está optimizada para usar poca memoria, pues los programas a usar fueron escritos cuando la memoria RAM disponible era ordenes de magnitud menor.
 Por lo tanto, los cuatro Gigabytes de memoria por CPU y GPU del Cluster es suficiente.
 
 
@@ -273,21 +278,21 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 
 
 \begin{table}[htb]
-	\begin{tabular}{|c|cccccccccccccc| }
+	\begin{tabular}{|c|ccccccccccccc| }
 	\hline
-	Tareas $\backslash$ Periodo & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 &  \\
+	Tareas $\backslash$ Periodo & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13   \\
 	\hline
-	1 & X & X & X &  X &  X &  X & X  & X &  &   &   &   &     & \\
-	2 & X & X & X & X  &   &   &   &  &  &   &   &   &     & \\	
-	3 &  &  &  & X & X  & X  &  X &  &  &   &   &   &      &\\
-	4 &  &  &  &   & X & X  & X  & X & X &   &   &   &      &\\
-	5 & X & X & X & X & X  &  X & X  &  &  &   &   &   &     & \\
-	6 & X & X &  & X  & X & X  & X  &  &  &   &   &   &      &\\
-	7 &  &  & X &  X & X  & X  & X  & X & X & X  &   &   &   &   \\
-	8 &  &  &  &   &   &  X &  X & X & X &  X &   &   &      &\\
-	9 &  &  &  &   &   &   &   & X & X & X  & X  & X  & X    & \\
-	10 &  &  &  &   &   &   & X  & X &  &   &  X &  X &   X  & \\ 
-	11 & X & X & X & X  & X  & X  &  X & X & X & X  & X  & X  &  X &\\   \hline
+	1 & X & X & X &  X &  X &  X & X  & X &  &   &   &   &      \\
+	2 & X & X & X & X  &   &   &   &  &  &   &   &   &      \\	
+	3 &  &  &  & X & X  & X  &  X &  &  &   &   &   &      \\
+	4 &  &  &  &   & X & X  & X  & X & X &   &   &   &      \\
+	5 & X & X & X & X & X  &  X & X  &  &  &   &   &   &      \\
+	6 & X & X &  & X  & X & X  & X  &  &  &   &   &   &      \\
+	7 &  &  & X &  X & X  & X  & X  & X & X & X  &   &   &      \\
+	8 &  &  &  &   &   &  X &  X & X & X &  X &   &   &      \\
+	9 &  &  &  &   &   &   &   & X & X & X  & X  & X  & X     \\
+	10 &  &  &  &   &   &   & X  & X &  &   &  X &  X &   X   \\ 
+	11 & X & X & X & X  & X  & X  &  X & X & X & X  & X  & X  &  X \\   \hline
 	\end{tabular}
 \end{table}
 \vspace{1mm}
@@ -297,9 +302,9 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 	\item Tarea 1: revisión bibliográfica.
 	\item Tarea 2: descargar las galaxias del repositorio público de ESO correspondientes al proyecto Araucaria, así como las imágenes de calibración y realizar el correspondiente procesamiento.
 	\item Tarea 3: realizar fotometría PSF sobre las imágenes procesadas y obtener catálogos de magnitud y coordenadas.
-	\item Tarea 4: realizar el cross-matching de las estrellas en los catálogos de fotometría para obtener las series de tiempo.
-	\item Tarea 5: definir un espacio de características en el que se pueda proyectar las curvas de luz reteniendo la mayor cantidad de información para la implementación del método supervisado.
-	\item Tarea 6: construir la muestra de entrenamiento con las estrellas clasificadas del proyecto OGLE y proyectarlas al espacio de características.
+	\item Tarea 4: realizar el crossmatch de las estrellas en los catálogos de fotometría para obtener las series de tiempo.
+	\item Tarea 5: definir un espacio de características en el que se pueda proyectar las curvas de luz reteniendo la mayor cantidad de información importante para la implementación del clasificador.
+	\item Tarea 6: construir la muestra de entrenamiento con las curvas de luz clasificadas del proyecto OGLE y proyectarla al espacio de características.
 	\item Tarea 7: diseñar un clasificador usando algoritmos de Machine Learning y explorar el espacio de hiperparámetros para optimizar los resultados.
 	\item Tarea 8: usar el clasificador sobre las curvas de luz generadas y formar un catálogo de estrellas candidatas. 
 	\item Tarea 9: Inspeccionar las estrellas candidatas,  determinar periodos, y reportar el catálogo final de estrellas variables.
@@ -323,18 +328,18 @@ Dado que se debe entregar la primera versión del documento final en la semana 11
 
 
 \section{Consideraciones éticas}
-Todos los datos que se planea usar son públicos y se encuentran disponibles en el catálogo del Observatorio Europeo Austral (ESO, por sus siglas en inglés).
-Todo el software utilizado para el desarrollo del proyecto es software Libre.
+Todos los datos que se planea usar son públicos y se encuentran disponibles en el catálogo del Observatorio Austral Europeo (ESO, por sus siglas en inglés) y el catálogo general de estrellas variables de OGLE.
+Todo el software utilizado para el desarrollo del proyecto es software Libre, y los recursos físicos son de propiedad de la universidad.
 No se modificará ninguna muestra de datos.
-En caso de hacer uso de algoritmos ya propuestos, se incluirá la debida referencia y citación en el documento final.
-
+En caso de hacer uso de algoritmos ya propuestos se incluirá la debida referencia y citación en el documento final.
+Por lo anterior, se considera que la propuesta no requiere ser evaluada por revisión del comité de ética.
 
 
 %\selectlanguage{english}
 %\bibliography{mybib}
 %\bibliographystyle{unsrt}
-
-\printbibliography{}
+\section{Bibliografía}
+\printbibliography[heading=none]
 
 \section*{ }
 
